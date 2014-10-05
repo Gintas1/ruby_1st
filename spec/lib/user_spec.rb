@@ -22,5 +22,13 @@ describe User do
 	end
   end
   describe 'clear_cart' do
+    it 'clears the cart' do
+      user = User.new(:username =>'test', :password =>'test')
+      game = Game.new(:name => 'Game name test', :genre => 'Genre test', :description => 'Game description test', :price=> 10)
+	  user.add_to_cart(game)
+	  user.clear_cart
+	  expect(user.cart.price).to eq(0)
+	  expect(user.cart.itemlist).to match_array([])
+	end
   end
 end
