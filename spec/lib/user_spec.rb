@@ -11,6 +11,7 @@ describe User do
 	  expect(user.balance).to eq(0)
 	  expect(user.cart).to be_a Cart
 	  expect(user.gamelist).to match_array([])
+	  expect(user.purchases).to match_array([])
 	end
   end
   describe 'cart' do
