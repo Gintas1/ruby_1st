@@ -56,7 +56,16 @@ describe User do
 	  user.balance = 10
 	  expect{user.buy}.to change{user.balance}.by(-10)
 	  expect(user.gamelist).to include(game)
-	  puts user.purchases
+	end
+	it 'sorts games in gamelist by name' do
+	  user = User.new(:username =>'test', :password =>'test')
+	  user.balance = 100
+	  game1 = Game.new(:name => 'b', :genre => 'Genre test', :description => 'Game description test', :price=> 10)
+	  game2 = Game.new(:name => 'a', :genre => 'Genre test', :description => 'Game description test', :price=> 10)
+	  user.add_to_cart(game1)
+	  user.add_to_cart(game2)
+	  user.buy
+	  expect{user.sort}.to change{user.gamelist}
 	end
   end
 end
