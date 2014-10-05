@@ -64,4 +64,8 @@ class User
 	  @gamelist.sort! { |a,b| a.name.downcase <=> b.name.downcase }
 	end
   end
+  
+  def print_purchases
+    print @purchases
+  end
 end
