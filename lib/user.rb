@@ -1,12 +1,13 @@
 require_relative 'cart'
 class User
-  attr_accessor :username, :password, :balance, :cart, :gamelist
+  attr_accessor :username, :password, :balance, :cart, :gamelist, :purchases
   def initialize(data)
     @username = data[:username]
 	@password = data[:password]
 	@balance = 0
 	@cart = Cart.new
 	@gamelist = []
+	@purchases = []
   end
   
   def add_to_cart(item)
@@ -39,4 +40,21 @@ class User
 	  raise TypeError, 'item instance is not a type of a Game'
 	end
   end
+  
+  def buy
+    if(@cart.itemlist == [])
+	  raise StandartError, 'your cart is empty'
+	else
+	  if(@cart.price > @balance)
+        raise StandartError, 'insufficient balance'
+      else
+        @balance -= cart.price
+		cart.itemlist.each {|x| @gamelist.push(x)}
+		@purchases.push([Time.now, cart.price, cart.itemlist.dup])
+		clear_cart
+      end	  
+	end
+  end
+  
+  
 end

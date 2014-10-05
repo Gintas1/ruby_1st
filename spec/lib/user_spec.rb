@@ -47,7 +47,7 @@ describe User do
 	  user.balance = 10
 	  expect(user.balance).to eq(10)
 	end
-	it 'buys items in a cart'
+	it 'buys items in a cart' do
 	  user = User.new(:username =>'test', :password =>'test')
 	  game = Game.new(:name => 'Game name test', :genre => 'Genre test', :description => 'Game description test', :price=> 10)
 	  expect{user.buy}.to raise_error
@@ -55,7 +55,8 @@ describe User do
 	  expect{user.buy}.to raise_error
 	  user.balance = 10
 	  expect{user.buy}.to change{user.balance}.by(-10)
-	  expect(user.games).to include(game)
+	  expect(user.gamelist).to include(game)
+	  puts user.purchases
 	end
   end
 end
