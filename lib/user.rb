@@ -10,8 +10,16 @@ class User
   end
   
   def add_to_cart(item)
-    @cart.itemlist.push(item)
-	@cart.price += item.price
+    if (item.is_a?(Game))
+	  if(cart.itemlist.include? item)
+	    raise StandartError, 'item is alredy in a cart'
+      else
+        @cart.itemlist.push(item)
+	    @cart.price += item.price
+      end
+	else
+	  raise TypeError, 'item should be instance of a game'
+	end
   end
   
   def clear_cart

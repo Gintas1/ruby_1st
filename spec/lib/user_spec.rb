@@ -19,6 +19,8 @@ describe User do
 	  game = Game.new(:name => 'Game name test', :genre => 'Genre test', :description => 'Game description test', :price=> 10)	  
 	  expect{ user.add_to_cart(game) }.to change{user.cart.price}.by(10)
 	  expect(user.cart.itemlist).to include(game)
+	  expect{ user.add_to_cart(1) }.to raise_error
+	  expect{ user.add_to_cart(game) }.to raise_error
 	end
     it 'clears the cart' do
       user = User.new(:username =>'test', :password =>'test')
@@ -28,5 +30,6 @@ describe User do
 	  expect(user.cart.price).to eq(0)
 	  expect(user.cart.itemlist).to match_array([])
 	end
+	
   end
 end
