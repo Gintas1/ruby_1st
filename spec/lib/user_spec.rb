@@ -59,13 +59,18 @@ describe User do
 	end
 	it 'sorts games in gamelist by name' do
 	  user = User.new(:username =>'test', :password =>'test')
-	  user.balance = 100
-	  game1 = Game.new(:name => 'b', :genre => 'Genre test', :description => 'Game description test', :price=> 10)
-	  game2 = Game.new(:name => 'a', :genre => 'Genre test', :description => 'Game description test', :price=> 10)
-	  user.add_to_cart(game1)
-	  user.add_to_cart(game2)
-	  user.buy
+	  expect{user.sort}.to raise_error
+      user.gamelist.push(Game.new(:name => 'b', :genre => 'Genre test', :description => 'Game description test', :price=> 10))
+	  user.gamelist.push(Game.new(:name => 'a', :genre => 'Genre test', :description => 'Game description test', :price=> 10))
 	  expect{user.sort}.to change{user.gamelist}
+	end
+	it 'adds info about purchases to array' do
+	  user = User.new(:username =>'test', :password =>'test')
+	  game = Game.new(:name => 'Game name test', :genre => 'Genre test', :description => 'Game description test', :price=> 10)
+	  user.balance = 100
+	  user.add_to_cart(game)
+	  user.buy
+	  expect(user.purchases).to include([Time, 10, [game]])
 	end
   end
 end
