@@ -39,6 +39,22 @@ describe User do
 	  expect(user.cart.itemlist).to match_array([])
 	  expect{ user.remove_from_cart(game) }.to raise_error
 	end
-	
+  end
+  describe 'buy' do
+    it 'changes user balance' do
+	  user = User.new(:username =>'test', :password =>'test')
+	  user.balance = 10
+	  expect(user.balance).to eq(10)
+	end
+	it 'buys items in a cart'
+	  user = User.new(:username =>'test', :password =>'test')
+	  game = Game.new(:name => 'Game name test', :genre => 'Genre test', :description => 'Game description test', :price=> 10)
+	  expect{user.buy}.to raise_error
+	  user.add_to_cart(game)
+	  expect{user.buy}.to raise_error
+	  user.balance = 10
+	  expect{user.buy}.to change{user.balance}.by(-10)
+	  expect(user.games).to include(game)
+	end
   end
 end
