@@ -34,6 +34,7 @@ describe User do
 	  user = User.new(:username =>'test', :password =>'test')
       game = Game.new(:name => 'Game name test', :genre => 'Genre test', :description => 'Game description test', :price=> 10)
 	  user.add_to_cart(game)
+	  expect{ user.remove_from_cart(1) }.to raise_error
 	  expect{ user.remove_from_cart(game) }.to change{user.cart.price}.by(-10)
 	  expect(user.cart.itemlist).to match_array([])
 	  expect{ user.remove_from_cart(game) }.to raise_error
