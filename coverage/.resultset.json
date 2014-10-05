@@ -1,0 +1,52 @@
+{
+  "RSpec": {
+    "coverage": {
+      "C:/ruby/first/spec/lib/cart_spec.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "C:/ruby/first/lib/cart.rb": [
+        1,
+        null
+      ],
+      "C:/ruby/first/spec/lib/user_spec.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "C:/ruby/first/lib/user.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1412521489
+  }
+}
