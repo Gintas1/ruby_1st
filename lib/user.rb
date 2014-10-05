@@ -52,9 +52,16 @@ class User
 		cart.itemlist.each {|x| @gamelist.push(x)}
 		@purchases.push([Time.now, cart.price, cart.itemlist.dup])
 		clear_cart
+		sort
       end	  
 	end
   end
   
-  
+  def sort
+    if(@gamelist == [])
+	  raise StandartError, 'Game list is empty'
+	else
+	  @gamelist.sort! { |a,b| a.name.downcase <=> b.name.downcase }
+	end
+  end
 end
