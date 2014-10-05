@@ -13,4 +13,9 @@ class User
     @cart.itemlist.push(item)
 	@cart.price += item.price
   end
+  
+  def clear_cart
+    @cart.price = 0
+	@cart.itemlist = []
+  end
 end

@@ -10,6 +10,8 @@ describe Game do
 	  expect(game.genre).to eq('Genre test')
 	  expect(game.description).to eq('Game description test')
 	  expect(game.price).to eq(10)
+	  expect(game.comments).to match_array([])
+	  expect(game.ratings).to match_array([])
 	end
   end
 end
