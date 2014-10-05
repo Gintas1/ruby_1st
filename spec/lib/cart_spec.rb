@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'cart'
 
 describe Cart do
-  destribe '#initialize' do
+  describe '#initialize' do
     it 'sets new cart' do
 	  cart = Cart.new
 	  expect(cart.price).to eq(0)
