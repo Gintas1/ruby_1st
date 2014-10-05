@@ -16,10 +16,11 @@ describe User do
   describe 'add_to_cart' do
     it 'adds item to cart' do
 	  user = User.new(:username =>'test', :password =>'test')
-	  game = Game.new(:name => 'Game name test', :genre => 'Genre test', :description => 'Game description test', :price=> 10
-	  user.add_to_cart(game)
-	  expect{user.add_to_cart(game)}.to change{user.cart.price}.by(10)
+	  game = Game.new(:name => 'Game name test', :genre => 'Genre test', :description => 'Game description test', :price=> 10)	  
+	  expect{ user.add_to_cart(game) }.to change{user.cart.price}.by(10)
 	  expect(user.cart.itemlist).to include(game)
 	end
+  end
+  describe 'clear_cart' do
   end
 end

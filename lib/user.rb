@@ -8,4 +8,9 @@ class User
 	@cart = Cart.new
 	@gamelist = []
   end
+  
+  def add_to_cart(item)
+    @cart.itemlist.push(item)
+	@cart.price += item.price
+  end
 end
