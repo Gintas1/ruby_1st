@@ -14,7 +14,7 @@
       <img src="./assets/0.8.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2014-10-06T13:36:31+03:00">2014-10-06T13:36:31+03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2014-10-06T13:52:44+03:00">2014-10-06T13:52:44+03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.24
+         2.26
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>6</b> files in total.
-    <b>177</b> relevant lines. 
-    <span class="green"><b>177</b> lines covered</span> and
+    <b>180</b> relevant lines. 
+    <span class="green"><b>180</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -53,7 +53,7 @@
       <tr>
         <td class="strong"><a href="#67f542f4cc1bb5625e280d9e5321e083c823872e" class="src_link" title="lib/cart.rb">lib/cart.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>7</td>
+        <td>8</td>
         <td>5</td>
         <td>5</td>
         <td>0</td>
@@ -73,9 +73,9 @@
       <tr>
         <td class="strong"><a href="#415c1d2de823d3cb69983c32f317dac85006f5e1" class="src_link" title="lib/user.rb">lib/user.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>80</td>
-        <td>47</td>
-        <td>47</td>
+        <td>89</td>
+        <td>51</td>
+        <td>51</td>
         <td>0</td>
         <td>3.1</td>
       </tr>
@@ -93,9 +93,9 @@
       <tr>
         <td class="strong"><a href="#3da27d594415aa27af8cf2a379834271b94a3225" class="src_link" title="spec/lib/game_spec.rb">spec/lib/game_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>30</td>
-        <td>22</td>
-        <td>22</td>
+        <td>29</td>
+        <td>21</td>
+        <td>21</td>
         <td>0</td>
         <td>1.3</td>
       </tr>
@@ -140,43 +140,49 @@
   <pre>
     <ol>
       
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="1">
           
-          <code class="ruby">class Cart</code>
+          
+          <code class="ruby"># class for user cart</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="2">
           <span class="hits">1</span>
           
-          <code class="ruby">  attr_accessor :price, :itemlist</code>
+          <code class="ruby">class Cart</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">  def initialize</code>
+          <code class="ruby">  attr_accessor :price, :itemlist</code>
         </li>
       
-        <li class="covered" data-hits="11" data-linenumber="4">
-          <span class="hits">11</span>
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
           
-          <code class="ruby">    @itemlist = []</code>
+          <code class="ruby">  def initialize</code>
         </li>
       
         <li class="covered" data-hits="11" data-linenumber="5">
           <span class="hits">11</span>
           
+          <code class="ruby">    @itemlist = []</code>
+        </li>
+      
+        <li class="covered" data-hits="11" data-linenumber="6">
+          <span class="hits">11</span>
+          
           <code class="ruby">    @price = 0</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="6">
+        <li class="never" data-hits="" data-linenumber="7">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="7">
+        <li class="never" data-hits="" data-linenumber="8">
           
           
           <code class="ruby">end</code>
@@ -200,112 +206,112 @@
   <pre>
     <ol>
       
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="1">
           
-          <code class="ruby">class Game</code>
+          
+          <code class="ruby"># class for game</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="2">
           <span class="hits">1</span>
           
-          <code class="ruby">  attr_accessor :price, :description, :name, :genre, :comments, :ratings</code>
+          <code class="ruby">class Game</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">  def initialize(data)</code>
+          <code class="ruby">  attr_accessor :price, :description, :name, :genre, :comments, :ratings</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="4">
-          <span class="hits">10</span>
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
           
-          <code class="ruby">    @name = data[:name]</code>
+          <code class="ruby">  def initialize(data)</code>
         </li>
       
         <li class="covered" data-hits="10" data-linenumber="5">
           <span class="hits">10</span>
           
-          <code class="ruby">    @description = data[:description]</code>
+          <code class="ruby">    @name = data[:name]</code>
         </li>
       
         <li class="covered" data-hits="10" data-linenumber="6">
           <span class="hits">10</span>
           
-          <code class="ruby">    @genre = data[:genre]</code>
+          <code class="ruby">    @description = data[:description]</code>
         </li>
       
         <li class="covered" data-hits="10" data-linenumber="7">
           <span class="hits">10</span>
           
-          <code class="ruby">    @price = data[:price]</code>
+          <code class="ruby">    @genre = data[:genre]</code>
         </li>
       
         <li class="covered" data-hits="10" data-linenumber="8">
           <span class="hits">10</span>
           
-          <code class="ruby">    @comments = []</code>
+          <code class="ruby">    @price = data[:price]</code>
         </li>
       
         <li class="covered" data-hits="10" data-linenumber="9">
           <span class="hits">10</span>
           
-          <code class="ruby">    @ratings = {}</code>
+          <code class="ruby">    @comments = []</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="10">
+        <li class="covered" data-hits="10" data-linenumber="10">
+          <span class="hits">10</span>
           
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">    @ratings = {}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="11">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="12">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="12">
+        <li class="covered" data-hits="1" data-linenumber="13">
           <span class="hits">1</span>
           
           <code class="ruby">  def rate(data)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="13">
+        <li class="covered" data-hits="5" data-linenumber="14">
           <span class="hits">5</span>
           
-          <code class="ruby">    if check_user(data[:user]) &amp;&amp; check_rating(data[:rating])</code>
+          <code class="ruby">    return unless check_user(data[:user]) &amp;&amp; check_rating(data[:rating])</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="14">
+        <li class="covered" data-hits="3" data-linenumber="15">
           <span class="hits">3</span>
           
-          <code class="ruby">      if ratings.key?(data[:user])</code>
+          <code class="ruby">    if ratings.key?(data[:user])</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="15">
+        <li class="covered" data-hits="1" data-linenumber="16">
           <span class="hits">1</span>
           
-          <code class="ruby">        fail StandartError, &#39;this user has already rated&#39;</code>
+          <code class="ruby">      fail StandartError, &#39;this user has already rated&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="16">
+        <li class="never" data-hits="" data-linenumber="17">
           
           
-          <code class="ruby">      else</code>
+          <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="17">
+        <li class="covered" data-hits="2" data-linenumber="18">
           <span class="hits">2</span>
           
-          <code class="ruby">        @ratings[data[:user]] = data[:rating]</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="18">
-          
-          
-          <code class="ruby">      end</code>
+          <code class="ruby">      @ratings[data[:user]] = data[:rating]</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="19">
@@ -323,7 +329,7 @@
         <li class="never" data-hits="" data-linenumber="21">
           
           
-          <code class="ruby">  </code>
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="22">
@@ -347,7 +353,7 @@
         <li class="never" data-hits="" data-linenumber="25">
           
           
-          <code class="ruby">	else</code>
+          <code class="ruby">    else</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="26">
@@ -371,7 +377,7 @@
         <li class="never" data-hits="" data-linenumber="29">
           
           
-          <code class="ruby">  </code>
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="30">
@@ -389,19 +395,19 @@
         <li class="covered" data-hits="3" data-linenumber="32">
           <span class="hits">3</span>
           
-          <code class="ruby">	  return true</code>
+          <code class="ruby">      return true</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="33">
           
           
-          <code class="ruby">	else</code>
+          <code class="ruby">    else</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="34">
           <span class="hits">1</span>
           
-          <code class="ruby">	  fail StandartError, &#39;raiting is not valid&#39;</code>
+          <code class="ruby">      fail StandartError, &#39;raiting is not valid&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="35">
@@ -431,8 +437,8 @@
     <h3>lib/user.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>47</b> relevant lines. 
-      <span class="green"><b>47</b> lines covered</span> and
+      <b>51</b> relevant lines. 
+      <span class="green"><b>51</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -440,10 +446,10 @@
   <pre>
     <ol>
       
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="1">
           
-          <code class="ruby">require_relative &#39;cart&#39;</code>
+          
+          <code class="ruby"># class for user</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="2">
@@ -713,208 +719,262 @@
         <li class="covered" data-hits="4" data-linenumber="46">
           <span class="hits">4</span>
           
-          <code class="ruby">    if @cart.itemlist == []</code>
+          <code class="ruby">    return unless check_cart &amp;&amp; check_balance</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="47">
+        <li class="covered" data-hits="2" data-linenumber="47">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    @balance -= cart.price</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="48">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    cart.itemlist.each { |x| @gamelist.push(x) }</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="49">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    @purchases.push([Time.now, cart.price, cart.itemlist.dup])</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="50">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    clear_cart</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="51">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    sort</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="52">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="53">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="54">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def check_cart</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="55">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    if @cart.itemlist.empty?</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="56">
           <span class="hits">1</span>
           
           <code class="ruby">      fail StandartError, &#39;your cart is empty&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="48">
+        <li class="never" data-hits="" data-linenumber="57">
           
           
           <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="49">
+        <li class="covered" data-hits="3" data-linenumber="58">
           <span class="hits">3</span>
           
-          <code class="ruby">      if @cart.price &gt; @balance</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="50">
-          <span class="hits">1</span>
-          
-          <code class="ruby">        fail StandartError, &#39;insufficient balance&#39;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="51">
-          
-          
-          <code class="ruby">      else</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="52">
-          <span class="hits">2</span>
-          
-          <code class="ruby">        @balance -= cart.price</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="53">
-          <span class="hits">4</span>
-          
-          <code class="ruby">        cart.itemlist.each { |x| @gamelist.push(x) }</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="54">
-          <span class="hits">2</span>
-          
-          <code class="ruby">        @purchases.push([Time.now, cart.price, cart.itemlist.dup])</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="55">
-          <span class="hits">2</span>
-          
-          <code class="ruby">        clear_cart</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="56">
-          <span class="hits">2</span>
-          
-          <code class="ruby">        sort</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="57">
-          
-          
-          <code class="ruby">      end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="58">
-          
-          
-          <code class="ruby">    end</code>
+          <code class="ruby">      true</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="59">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="60">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="61">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="61">
+        <li class="covered" data-hits="1" data-linenumber="62">
           <span class="hits">1</span>
           
-          <code class="ruby">  def sort</code>
+          <code class="ruby">  def check_balance</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="62">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="3" data-linenumber="63">
+          <span class="hits">3</span>
           
-          <code class="ruby">    if @gamelist == []</code>
+          <code class="ruby">    if @cart.price &gt; @balance</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="63">
+        <li class="covered" data-hits="1" data-linenumber="64">
           <span class="hits">1</span>
           
-          <code class="ruby">      fail StandartError, &#39;Game list is empty&#39;</code>
+          <code class="ruby">      fail StandartError, &#39;insufficient balance&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="64">
+        <li class="never" data-hits="" data-linenumber="65">
           
           
           <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="65">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="2" data-linenumber="66">
+          <span class="hits">2</span>
           
-          <code class="ruby">      @gamelist.sort! { |a, b| a.name.downcase &lt;=&gt; b.name.downcase }</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="66">
-          
-          
-          <code class="ruby">    end</code>
+          <code class="ruby">      true</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="67">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="68">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="69">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="69">
+        <li class="covered" data-hits="1" data-linenumber="70">
           <span class="hits">1</span>
           
-          <code class="ruby">  def rate_game(data)</code>
+          <code class="ruby">  def sort</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="70">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="71">
+          <span class="hits">4</span>
           
-          <code class="ruby">    if data[:game].is_a? Game</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="71">
-          <span class="hits">2</span>
-          
-          <code class="ruby">      if (0..5).include? data[:rating]</code>
+          <code class="ruby">    if @gamelist == []</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="72">
           <span class="hits">1</span>
           
-          <code class="ruby">        data[:game].rate(user: self, rating: data[:rating])</code>
+          <code class="ruby">      fail StandartError, &#39;Game list is empty&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="73">
           
           
-          <code class="ruby">      else</code>
+          <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="74">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="4" data-linenumber="74">
+          <span class="hits">4</span>
           
-          <code class="ruby">        fail StandartError, &#39;your rating is not in valid range&#39;</code>
+          <code class="ruby">      @gamelist.sort! { |a, b| a.name.downcase &lt;=&gt; b.name.downcase }</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="75">
           
           
-          <code class="ruby">      end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="76">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="77">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="78">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def rate_game(data)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="79">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    if data[:game].is_a? Game</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="80">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      if (0..5).include? data[:rating]</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="81">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        data[:game].rate(user: self, rating: data[:rating])</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="82">
+          
+          
+          <code class="ruby">      else</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="83">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        fail StandartError, &#39;your rating is not in valid range&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="84">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="85">
+          
+          
           <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="77">
+        <li class="covered" data-hits="1" data-linenumber="86">
           <span class="hits">1</span>
           
           <code class="ruby">      fail TypeError, &#39;this is not a game&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="78">
+        <li class="never" data-hits="" data-linenumber="87">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="79">
+        <li class="never" data-hits="" data-linenumber="88">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="80">
+        <li class="never" data-hits="" data-linenumber="89">
           
           
           <code class="ruby">end</code>
@@ -1025,8 +1085,8 @@
     <h3>spec/lib/game_spec.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>22</b> relevant lines. 
-      <span class="green"><b>22</b> lines covered</span> and
+      <b>21</b> relevant lines. 
+      <span class="green"><b>21</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -1178,37 +1238,31 @@
           <code class="ruby">      expect { game.rate(user: user, rating: 6) }.to raise_error</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="25">
-          <span class="hits">1</span>
-          
-          <code class="ruby">	  puts game.ratings</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="26">
+        <li class="covered" data-hits="4" data-linenumber="25">
           <span class="hits">4</span>
           
           <code class="ruby">      expect { game.rate(user: user, rating: 4) }.to change { game.ratings }</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="27">
+        <li class="covered" data-hits="2" data-linenumber="26">
           <span class="hits">2</span>
           
           <code class="ruby">      expect { game.rate(user: user, rating: 5) }.to raise_error</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="28">
+        <li class="never" data-hits="" data-linenumber="27">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="29">
+        <li class="never" data-hits="" data-linenumber="28">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="30">
+        <li class="never" data-hits="" data-linenumber="29">
           
           
           <code class="ruby">end</code>

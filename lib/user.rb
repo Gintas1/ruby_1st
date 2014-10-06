@@ -1,4 +1,4 @@
-require_relative 'cart'
+# class for user
 class User
   attr_accessor :username, :password, :balance,
                 :cart, :gamelist, :purchases
@@ -43,18 +43,27 @@ class User
   end
 
   def buy
-    if @cart.itemlist == []
+    return unless check_cart && check_balance
+    @balance -= cart.price
+    cart.itemlist.each { |x| @gamelist.push(x) }
+    @purchases.push([Time.now, cart.price, cart.itemlist.dup])
+    clear_cart
+    sort
+  end
+
+  def check_cart
+    if @cart.itemlist.empty?
       fail StandartError, 'your cart is empty'
     else
-      if @cart.price > @balance
-        fail StandartError, 'insufficient balance'
-      else
-        @balance -= cart.price
-        cart.itemlist.each { |x| @gamelist.push(x) }
-        @purchases.push([Time.now, cart.price, cart.itemlist.dup])
-        clear_cart
-        sort
-      end
+      true
+    end
+  end
+
+  def check_balance
+    if @cart.price > @balance
+      fail StandartError, 'insufficient balance'
+    else
+      true
     end
   end
 
