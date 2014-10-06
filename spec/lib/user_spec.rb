@@ -73,14 +73,14 @@ describe User do
 	  expect(user.purchases).to include([Time, 10, [game]])
 	end
   end
-  describe 'puts' do
-    it 'purchase info'do
+  describe 'rate' do
+    it 'rates games' do
 	  user = User.new(:username =>'test', :password =>'test')
+	  expect{user.rate_game(:game => 0, :rating => 0 )}.to raise_error
 	  game = Game.new(:name => 'Game name test', :genre => 'Genre test', :description => 'Game description test', :price=> 10)
-	  user.balance = 100
-	  user.add_to_cart(game)
-	  user.buy
-	  
+	  expect{user.rate_game(:game => game, :rating => 6 )}.to raise_error
+	  expect{user.rate_game(:game => game, :rating => 5 )}.to change{game.ratings}
+	  expect(game.ratings).to include({user => 5})
 	end
   end
 end
