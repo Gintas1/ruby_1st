@@ -1,7 +1,11 @@
 {
   "RSpec": {
     "coverage": {
+<<<<<<< HEAD
       "C:/Ruby/first/spec/lib/cart_spec.rb": [
+=======
+      "C:/ruby/first/spec/lib/cart_spec.rb": [
+>>>>>>> 6200c05075473b86883880a4a5f3d48802ff6b41
         1,
         1,
         1,
@@ -16,7 +20,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "C:/Ruby/first/lib/cart.rb": [
+=======
+      "C:/ruby/first/lib/cart.rb": [
+>>>>>>> 6200c05075473b86883880a4a5f3d48802ff6b41
         null,
         1,
         1,
@@ -26,7 +34,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "C:/Ruby/first/spec/lib/game_spec.rb": [
+=======
+      "C:/ruby/first/spec/lib/game_spec.rb": [
+>>>>>>> 6200c05075473b86883880a4a5f3d48802ff6b41
         1,
         1,
         1,
@@ -57,7 +69,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "C:/Ruby/first/lib/game.rb": [
+=======
+      "C:/ruby/first/lib/game.rb": [
+>>>>>>> 6200c05075473b86883880a4a5f3d48802ff6b41
         null,
         1,
         1,
@@ -96,7 +112,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "C:/Ruby/first/spec/lib/user_spec.rb": [
+=======
+      "C:/ruby/first/spec/lib/user_spec.rb": [
+>>>>>>> 6200c05075473b86883880a4a5f3d48802ff6b41
         1,
         1,
         1,
@@ -193,7 +213,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "C:/Ruby/first/lib/user.rb": [
+=======
+      "C:/ruby/first/lib/user.rb": [
+>>>>>>> 6200c05075473b86883880a4a5f3d48802ff6b41
         null,
         1,
         1,
@@ -285,6 +309,10 @@
         null
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1414404159
+=======
+    "timestamp": 1412592764
+>>>>>>> 6200c05075473b86883880a4a5f3d48802ff6b41
   }
 }
