@@ -14,7 +14,7 @@
       <img src="./assets/0.8.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2014-10-30T14:42:40+02:00">2014-10-30T14:42:40+02:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2014-10-30T19:44:29+02:00">2014-10-30T19:44:29+02:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         3.25
+         3.13
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
-    <b>6</b> files in total.
-    <b>264</b> relevant lines. 
-    <span class="green"><b>264</b> lines covered</span> and
+    <b>10</b> files in total.
+    <b>289</b> relevant lines. 
+    <span class="green"><b>289</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -61,13 +61,33 @@
       </tr>
       
       <tr>
+        <td class="strong"><a href="#238188abc2b77335b4891e14876e998580d35acd" class="src_link" title="lib/comment.rb">lib/comment.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>4</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
         <td class="strong"><a href="#95b450e237badcf0463353e7dfaa0d31fef676fd" class="src_link" title="lib/game.rb">lib/game.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>37</td>
         <td>22</td>
         <td>22</td>
         <td>0</td>
-        <td>9.3</td>
+        <td>10.1</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#2c563cb89ed5b4de4f8bdf45e4686fe72ae11169" class="src_link" title="lib/purchase.rb">lib/purchase.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>10</td>
+        <td>6</td>
+        <td>6</td>
+        <td>0</td>
+        <td>2.0</td>
       </tr>
       
       <tr>
@@ -91,6 +111,16 @@
       </tr>
       
       <tr>
+        <td class="strong"><a href="#7270d06bbac0b382f031c34f9e4aedb58482ea0b" class="src_link" title="spec/lib/comment_spec.rb">spec/lib/comment_spec.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>7</td>
+        <td>4</td>
+        <td>4</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
         <td class="strong"><a href="#6e37a16dc405a7d88776d9d3f60d0e64b0736a01" class="src_link" title="spec/lib/game_spec.rb">spec/lib/game_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>64</td>
@@ -98,6 +128,16 @@
         <td>40</td>
         <td>0</td>
         <td>1.2</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#e53173d252114b8c4559450e6c6ee703f61d080b" class="src_link" title="spec/lib/purchase_spec.rb">spec/lib/purchase_spec.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>29</td>
+        <td>14</td>
+        <td>14</td>
+        <td>0</td>
+        <td>1.0</td>
       </tr>
       
       <tr>
@@ -192,6 +232,48 @@
   </pre>
 </div>
       
+        <div class="source_table" id="238188abc2b77335b4891e14876e998580d35acd">
+  <div class="header">
+    <h3>lib/comment.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>1</b> relevant lines. 
+      <span class="green"><b>1</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="never" data-hits="" data-linenumber="1">
+          
+          
+          <code class="ruby">#class for game comments</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class Comment </code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="3">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+      
         <div class="source_table" id="95b450e237badcf0463353e7dfaa0d31fef676fd">
   <div class="header">
     <h3>lib/game.rb</h3>
@@ -230,38 +312,38 @@
           <code class="ruby">  def initialize(data)</code>
         </li>
       
-        <li class="covered" data-hits="27" data-linenumber="5">
-          <span class="hits">27</span>
+        <li class="covered" data-hits="30" data-linenumber="5">
+          <span class="hits">30</span>
           
           <code class="ruby">    @name = data[:name]</code>
         </li>
       
-        <li class="covered" data-hits="27" data-linenumber="6">
-          <span class="hits">27</span>
+        <li class="covered" data-hits="30" data-linenumber="6">
+          <span class="hits">30</span>
           
           <code class="ruby">    @description = data[:description]</code>
         </li>
       
-        <li class="covered" data-hits="27" data-linenumber="7">
-          <span class="hits">27</span>
+        <li class="covered" data-hits="30" data-linenumber="7">
+          <span class="hits">30</span>
           
           <code class="ruby">    @genre = data[:genre]</code>
         </li>
       
-        <li class="covered" data-hits="27" data-linenumber="8">
-          <span class="hits">27</span>
+        <li class="covered" data-hits="30" data-linenumber="8">
+          <span class="hits">30</span>
           
           <code class="ruby">    @price = data[:price]</code>
         </li>
       
-        <li class="covered" data-hits="27" data-linenumber="9">
-          <span class="hits">27</span>
+        <li class="covered" data-hits="30" data-linenumber="9">
+          <span class="hits">30</span>
           
           <code class="ruby">    @comments = []</code>
         </li>
       
-        <li class="covered" data-hits="27" data-linenumber="10">
-          <span class="hits">27</span>
+        <li class="covered" data-hits="30" data-linenumber="10">
+          <span class="hits">30</span>
           
           <code class="ruby">    @ratings = {}</code>
         </li>
@@ -423,6 +505,84 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="37">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+      
+        <div class="source_table" id="2c563cb89ed5b4de4f8bdf45e4686fe72ae11169">
+  <div class="header">
+    <h3>lib/purchase.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>6</b> relevant lines. 
+      <span class="green"><b>6</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="never" data-hits="" data-linenumber="1">
+          
+          
+          <code class="ruby">#class for user purchase</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class Purchase</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_accessor :time, :items, :price</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(data)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="5">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @time = Time.now</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="6">
+          <span class="hits">3</span>
+          
+          <code class="ruby">	@items = data[:items]</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="7">
+          <span class="hits">3</span>
+          
+          <code class="ruby">	@price = data[:price]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="9">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
           
           
           <code class="ruby">end</code>
@@ -1116,6 +1276,66 @@
   </pre>
 </div>
       
+        <div class="source_table" id="7270d06bbac0b382f031c34f9e4aedb58482ea0b">
+  <div class="header">
+    <h3>spec/lib/comment_spec.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>4</b> relevant lines. 
+      <span class="green"><b>4</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;rspec&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;spec_helper&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;comment&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
+          
+          <code class="ruby">describe Comment do</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="7">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+      
         <div class="source_table" id="6e37a16dc405a7d88776d9d3f60d0e64b0736a01">
   <div class="header">
     <h3>spec/lib/game_spec.rb</h3>
@@ -1509,6 +1729,198 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="64">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+      
+        <div class="source_table" id="e53173d252114b8c4559450e6c6ee703f61d080b">
+  <div class="header">
+    <h3>spec/lib/purchase_spec.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>14</b> relevant lines. 
+      <span class="green"><b>14</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;rspec&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;spec_helper&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;purchase&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
+          
+          <code class="ruby">describe Purchase do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  describe &#39;#initialize&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    it &#39;checks the time&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="8">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      purchase = Purchase.new(items: [Game.new(name: &#39;Game name test&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="9">
+          
+          
+          <code class="ruby">                                               genre: &#39;Genre test&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
+          
+          
+          <code class="ruby">                                               description: &#39;desc test&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
+          
+          
+          <code class="ruby">                                               price: 10)], price: 10) </code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      expect(purchase.time).to be_a(Time)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="14">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    it &#39;checks the time&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="15">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      purchase = Purchase.new(items: [Game.new(name: &#39;Game name test&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="16">
+          
+          
+          <code class="ruby">                                               genre: &#39;Genre test&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="17">
+          
+          
+          <code class="ruby">                                               description: &#39;desc test&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="18">
+          
+          
+          <code class="ruby">                                               price: 10)], price: 10) </code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="19">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      expect(purchase.price).to eq(10)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="20">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="21">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    it &#39;checks the time&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="22">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      purchase = Purchase.new(items: [Game.new(name: &#39;Game name test&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby">                                               genre: &#39;Genre test&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
+          
+          
+          <code class="ruby">                                               description: &#39;desc test&#39;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="25">
+          
+          
+          <code class="ruby">                                               price: 10)], price: 10) </code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="26">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      expect(purchase.items).not_to be_empty</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="27">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="28">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="29">
           
           
           <code class="ruby">end</code>
