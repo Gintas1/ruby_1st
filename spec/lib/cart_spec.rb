@@ -10,7 +10,7 @@ describe Cart do
     end
     it 'checks item list of a new cart' do
       cart = Cart.new
-      expect(cart.itemlist).to match_array([])
+      expect(cart.itemlist).to match_array({})
     end
   end
 end

@@ -51,11 +51,18 @@ describe User do
       user = User.new(username: 'test', password: 'test')
       expect { user.add_to_cart(1) }.to raise_error
     end
-    it 'checks if error is raised if user tries to add the same item twice' do
+    it 'checks if two items were added' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
-      expect { 2.times { user.add_to_cart(game) } }.to raise_error
+      expect { user.add_to_cart(game, 2) }.to change { user.cart.itemlist[game]}.to(2)
+    end
+    it 'checks if two items were added if item was already in a cart' do
+      user = User.new(username: 'test', password: 'test')
+      game = Game.new(name: 'Game name test', genre: 'Genre test',
+                      description: 'Game description test', price: 10)
+      user.add_to_cart(game, 1)
+      expect { user.add_to_cart(game, 2) }.to change { user.cart.itemlist[game]}.to(3)
     end
     it 'checks if cart price is 0 after clearing it' do
       user = User.new(username: 'test', password: 'test')
@@ -86,9 +93,9 @@ describe User do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
-      user.add_to_cart(game)
+      user.add_to_cart(game,2)
       expect { user.remove_from_cart(game) }
-             .to change { user.cart.price }.by(-10)
+             .to change { user.cart.price }.by(-20)
     end
     it ' checks if item is removed from the cart after removing it' do
       user = User.new(username: 'test', password: 'test')
@@ -165,7 +172,7 @@ describe User do
       user.balance = 100
       user.add_to_cart(game)
       user.buy
-      expect(user.purchases).to include([Time, 10, [game]])
+      expect(user.purchases).to include(Purchase)
     end
   end
   describe 'rates a game' do

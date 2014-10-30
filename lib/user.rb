@@ -14,13 +14,14 @@ class User
 	
   end
 
-  def add_to_cart(item)
+  def add_to_cart(item, amount = 1)
     if item.is_a?(Game)
       if cart.itemlist.include? item
-        fail StandartError, 'item is alredy in a cart'
+        @cart.itemlist[item] += amount
+        @cart.price += amount * item.price
       else
-        @cart.itemlist.push(item)
-        @cart.price += item.price
+        @cart.itemlist[item] = amount
+        @cart.price += amount * item.price
       end
     else
       fail TypeError, 'item should be instance of a game'
@@ -35,8 +36,8 @@ class User
   def remove_from_cart(item)
     if item.is_a?(Game)
       if cart.itemlist.include? item
+        @cart.price -= item.price * @cart.itemlist[item]
         @cart.itemlist.delete(item)
-        @cart.price -= item.price
       else
         fail StandartError, 'item you want to remove is not in a list'
       end
@@ -48,8 +49,8 @@ class User
   def buy
     return unless check_cart && check_balance
     @balance -= cart.price
-    cart.itemlist.each { |x| @gamelist.push(x) }
-    @purchases.push([Time.now, cart.price, cart.itemlist.dup])
+    cart.itemlist.each { |x,y| y.times{@gamelist.push(x)} }
+    @purchases.push(Purchase.new(price:cart.price, items: cart.itemlist.dup))
     clear_cart
     sort
   end

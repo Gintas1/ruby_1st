@@ -2,7 +2,7 @@
 class Cart
   attr_accessor :price, :itemlist
   def initialize
-    @itemlist = []
+    @itemlist = {}
     @price = 0
   end
 end
