@@ -90,4 +90,8 @@ class User
       fail TypeError, 'this is not a game'
     end
   end
+  
+  def comment_game(data)
+    data[:game].comments.push(Comment.new(user: self, text: data[:text]))
+  end
 end

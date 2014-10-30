@@ -194,4 +194,13 @@ describe User do
              .to change { game.ratings }
     end
   end
+  describe 'comment game' do
+    it 'checks if user commented a game' do
+      user = User.new(username: 'test', password: 'test')
+      game = Game.new(name: 'Game name test', genre: 'Genre test',
+                      description: 'Game description test', price: 10)
+      expect { user.comment_game(game: game, text: 'test text') }
+             .to change { game.comments }.from([])
+    end
+  end
 end
