@@ -14,7 +14,7 @@
       <img src="./assets/0.8.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2014-10-30T20:47:39+02:00">2014-10-30T20:47:39+02:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2014-10-30T20:58:07+02:00">2014-10-30T20:58:07+02:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         3.2
+         3.19
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>10</b> files in total.
-    <b>297</b> relevant lines. 
-    <span class="green"><b>297</b> lines covered</span> and
+    <b>310</b> relevant lines. 
+    <span class="green"><b>310</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -57,17 +57,17 @@
         <td>5</td>
         <td>5</td>
         <td>0</td>
-        <td>14.2</td>
+        <td>15.4</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#238188abc2b77335b4891e14876e998580d35acd" class="src_link" title="lib/comment.rb">lib/comment.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>4</td>
-        <td>1</td>
-        <td>1</td>
+        <td>9</td>
+        <td>6</td>
+        <td>6</td>
         <td>0</td>
-        <td>1.0</td>
+        <td>2.0</td>
       </tr>
       
       <tr>
@@ -97,7 +97,7 @@
         <td>53</td>
         <td>53</td>
         <td>0</td>
-        <td>7.2</td>
+        <td>7.5</td>
       </tr>
       
       <tr>
@@ -113,9 +113,9 @@
       <tr>
         <td class="strong"><a href="#7270d06bbac0b382f031c34f9e4aedb58482ea0b" class="src_link" title="spec/lib/comment_spec.rb">spec/lib/comment_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>10</td>
-        <td>6</td>
-        <td>6</td>
+        <td>20</td>
+        <td>14</td>
+        <td>14</td>
         <td>0</td>
         <td>1.0</td>
       </tr>
@@ -204,14 +204,14 @@
           <code class="ruby">  def initialize</code>
         </li>
       
-        <li class="covered" data-hits="34" data-linenumber="5">
-          <span class="hits">34</span>
+        <li class="covered" data-hits="37" data-linenumber="5">
+          <span class="hits">37</span>
           
           <code class="ruby">    @itemlist = {}</code>
         </li>
       
-        <li class="covered" data-hits="34" data-linenumber="6">
-          <span class="hits">34</span>
+        <li class="covered" data-hits="37" data-linenumber="6">
+          <span class="hits">37</span>
           
           <code class="ruby">    @price = 0</code>
         </li>
@@ -237,8 +237,8 @@
     <h3>lib/comment.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>1</b> relevant lines. 
-      <span class="green"><b>1</b> lines covered</span> and
+      <b>6</b> relevant lines. 
+      <span class="green"><b>6</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -258,13 +258,43 @@
           <code class="ruby">class Comment </code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="3">
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">attr_accessor :time, :text, :user</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="4">
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(data)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="5">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @time = Time.now</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="6">
+          <span class="hits">3</span>
+          
+          <code class="ruby">	@text = data[:text]</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="7">
+          <span class="hits">3</span>
+          
+          <code class="ruby">	@user = data[:user]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="9">
           
           
           <code class="ruby">end</code>
@@ -642,44 +672,44 @@
           <code class="ruby">  def initialize(data)</code>
         </li>
       
-        <li class="covered" data-hits="32" data-linenumber="7">
-          <span class="hits">32</span>
+        <li class="covered" data-hits="35" data-linenumber="7">
+          <span class="hits">35</span>
           
           <code class="ruby">    @username = data[:username]</code>
         </li>
       
-        <li class="covered" data-hits="32" data-linenumber="8">
-          <span class="hits">32</span>
+        <li class="covered" data-hits="35" data-linenumber="8">
+          <span class="hits">35</span>
           
           <code class="ruby">    @password = data[:password]</code>
         </li>
       
-        <li class="covered" data-hits="32" data-linenumber="9">
-          <span class="hits">32</span>
+        <li class="covered" data-hits="35" data-linenumber="9">
+          <span class="hits">35</span>
           
           <code class="ruby">    @balance = 0</code>
         </li>
       
-        <li class="covered" data-hits="32" data-linenumber="10">
-          <span class="hits">32</span>
+        <li class="covered" data-hits="35" data-linenumber="10">
+          <span class="hits">35</span>
           
           <code class="ruby">    @cart = Cart.new</code>
         </li>
       
-        <li class="covered" data-hits="32" data-linenumber="11">
-          <span class="hits">32</span>
+        <li class="covered" data-hits="35" data-linenumber="11">
+          <span class="hits">35</span>
           
           <code class="ruby">    @gamelist = []</code>
         </li>
       
-        <li class="covered" data-hits="32" data-linenumber="12">
-          <span class="hits">32</span>
+        <li class="covered" data-hits="35" data-linenumber="12">
+          <span class="hits">35</span>
           
           <code class="ruby">    @purchases = []</code>
         </li>
       
-        <li class="covered" data-hits="32" data-linenumber="13">
-          <span class="hits">32</span>
+        <li class="covered" data-hits="35" data-linenumber="13">
+          <span class="hits">35</span>
           
           <code class="ruby">	@blocked = false</code>
         </li>
@@ -1287,8 +1317,8 @@
     <h3>spec/lib/comment_spec.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>6</b> relevant lines. 
-      <span class="green"><b>6</b> lines covered</span> and
+      <b>14</b> relevant lines. 
+      <span class="green"><b>14</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -1335,22 +1365,82 @@
         <li class="covered" data-hits="1" data-linenumber="7">
           <span class="hits">1</span>
           
-          <code class="ruby">    it &#39;&#39; do</code>
+          <code class="ruby">    it &#39;checks text of a comment&#39; do</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="8">
+        <li class="covered" data-hits="1" data-linenumber="8">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      comment = Comment.new(text: &#39;text test&#39;, user: User.new(username: &#39;test&#39;, password: &#39;test&#39;), )</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      expect(comment.text).to eq(&#39;text test&#39;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
           
           
           <code class="ruby">	end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="9">
+        <li class="covered" data-hits="1" data-linenumber="11">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    it &#39;checks author of a comment&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      comment = Comment.new(text: &#39;text test&#39;, user: User.new(username: &#39;test&#39;, password: &#39;test&#39;), )</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="13">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      expect(comment.user.username).to eq(&#39;test&#39;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby">	end</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="15">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    it &#39;checks time of a comment&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="16">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      comment = Comment.new(text: &#39;text test&#39;, user: User.new(username: &#39;test&#39;, password: &#39;test&#39;), )</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="17">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      expect(comment.time).to be_a(Time)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="18">
+          
+          
+          <code class="ruby">	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="19">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="10">
+        <li class="never" data-hits="" data-linenumber="20">
           
           
           <code class="ruby">end</code>

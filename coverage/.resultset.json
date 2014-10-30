@@ -24,12 +24,22 @@
         1,
         1,
         1,
-        34,
-        34,
+        37,
+        37,
         null,
         null
       ],
       "C:/Ruby/first/spec/lib/comment_spec.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
         1,
         1,
         1,
@@ -44,6 +54,11 @@
       "C:/Ruby/first/lib/comment.rb": [
         null,
         1,
+        1,
+        1,
+        3,
+        3,
+        3,
         null,
         null
       ],
@@ -401,13 +416,13 @@
         null,
         null,
         1,
-        32,
-        32,
-        32,
-        32,
-        32,
-        32,
-        32,
+        35,
+        35,
+        35,
+        35,
+        35,
+        35,
+        35,
         null,
         null,
         null,
@@ -490,6 +505,6 @@
         null
       ]
     },
-    "timestamp": 1414694858
+    "timestamp": 1414695487
   }
 }
