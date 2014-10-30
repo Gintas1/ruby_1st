@@ -4,9 +4,12 @@ require 'cart'
 
 describe Cart do
   describe '#initialize' do
-    it 'sets new cart' do
+    it 'checks price of a new cart' do
       cart = Cart.new
       expect(cart.price).to eq(0)
+    end
+    it 'checks item list of a new cart' do
+      cart = Cart.new
       expect(cart.itemlist).to match_array([])
     end
   end

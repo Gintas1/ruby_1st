@@ -1,7 +1,8 @@
 # class for user
 class User
   attr_accessor :username, :password, :balance,
-                :cart, :gamelist, :purchases
+                :cart, :gamelist, :purchases,
+                :blocked
   def initialize(data)
     @username = data[:username]
     @password = data[:password]
@@ -9,6 +10,8 @@ class User
     @cart = Cart.new
     @gamelist = []
     @purchases = []
+	@blocked = false
+	
   end
 
   def add_to_cart(item)
