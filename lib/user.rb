@@ -2,7 +2,7 @@
 class User
   attr_accessor :username, :password, :balance,
                 :cart, :gamelist, :purchases,
-                :blocked
+                :blocked, :messages
   def initialize(data)
     @username = data[:username]
     @password = data[:password]
@@ -11,6 +11,7 @@ class User
     @gamelist = []
     @purchases = []
 	@blocked = false
+	@messages = []
 	
   end
 

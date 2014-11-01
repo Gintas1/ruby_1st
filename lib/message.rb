@@ -9,4 +9,5 @@ class Message
 	@topic = data[:topic]
 	@text = data[:text]
   end
+
 end

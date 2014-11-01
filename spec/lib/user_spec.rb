@@ -32,6 +32,10 @@ describe User do
       user = User.new(username: 'test', password: 'test')
       expect(user.blocked).to be false
     end
+	it 'checks if created user is not blocked' do
+      user = User.new(username: 'test', password: 'test')
+      expect(user.messages).to match_array([])
+    end
   end
   describe 'adds item to cart' do
     it 'checks if balance has changed' do
@@ -201,6 +205,14 @@ describe User do
                       description: 'Game description test', price: 10)
       expect { user.comment_game(game: game, text: 'test text') }
              .to change { game.comments }.from([])
+    end
+  end
+  describe 'sends a message' do
+    it 'checks if message was sent' do
+      sender = User.new(username: 'test', password: 'test')
+      receiver = User.new(username: 'test', password: 'test')
+      sender.send_message(topic: 'topic', text: 'text', receiver: receiver)
+	  expect(receiver.messages).to include(Message)
     end
   end
 end
