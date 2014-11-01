@@ -32,7 +32,7 @@ class User
 
   def clear_cart
     @cart.price = 0
-    @cart.itemlist = []
+    @cart.itemlist = {}
   end
 
   def remove_from_cart(item)
@@ -97,8 +97,8 @@ class User
   
   def comment_game(data)
     data[:game].comment_count += 1
-    data[:game].comments.push(Comment.new(user: self, text: data[:text]),
-	                                      id: data[:game].comment_count)
+    data[:game].comments.push(Comment.new(user: self, text: data[:text],
+	                                      id: data[:game].comment_count))
   end
   
   def send_message(data)
@@ -106,14 +106,10 @@ class User
     data[:receiver].messages.push(Message.new(sender: self,
                                               receiver: data[:receiver],
                                               text: data[:text],
-                                              topic: data[:topic]),
-                                              id: data[:receiver].message_id)
+                                              topic: data[:topic],
+                                              id: data[:receiver].message_id))
   end
-  
-  def edit_user_balance(user, balance)
-    user.balance = balance
-  end
-  
+
   def check_username(name)
     return @username == name
   end

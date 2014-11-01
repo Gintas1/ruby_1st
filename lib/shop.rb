@@ -4,6 +4,7 @@ require_relative 'admin'
 require_relative 'game'
 require_relative 'comment'
 require_relative 'purchase'
+require_relative 'message'
 require_relative 'cart'
 class Shop
   attr_accessor :users, :games, :current_user, :name, :price_modifier,
@@ -77,9 +78,13 @@ class Shop
       @current_user = @users.find { |user| user.check_data(username, password) }
 	  puts @current_user
 	  if @current_user.is_a?(User) || @current_user.is_a?(Admin)
-        puts 'you have loged in'
-		main_window
-        break
+	    if @current_user.blocked
+		  puts 'this user is blocked'
+		else
+          puts 'you have loged in'
+		  main_window
+          break
+		end
       else
         puts 'Wrong username or password'
       end
@@ -133,18 +138,132 @@ class Shop
   end
 
   def user_window
-    
+    puts
+	loop do
+	  puts
+      puts 'welcome to your user profile, ' + @current_user.username + ' your balance now is: ' + @current_user.balance.to_s
+	  puts 'what would you like to do?'
+	  puts 'send - to white a message'
+	  puts 'messages - t view messages'
+	  puts 'games - to wiev a list of games you own'
+	  puts 'purchases - to see see you purchase history'
+	  puts 'cart - to wiev a cart'
+	  puts 'sort - to sort a gamelist'
+	  puts 'back - to go back'
+	  action = gets.downcase.rstrip!
+	  case action
+	    when 'send'
+		  send_message
+		when 'messages'
+		  puts 'your messages(id, read?, date, sender, topic):'
+		  @current_user.messages.each { |message| puts message.id.to_s + ' ' +
+		                               message.read.to_s + ' ' +
+		                               message.date.to_s + ' ' + 
+									   message.sender.username + ' ' + 
+									   message.topic }
+		when 'read'
+		  puts 'enter id of a message you want to read'
+		  id = gets.to_i
+		  message = @current_user.messages.find { |msg| msg.id ==id }
+		  if message.is_a?(Message)
+		    message.read = true
+			puts 'time message was sent: ' + message.date.to_s
+			puts 'sender: ' + message.sender.username
+			puts 'topic: ' + message.topic
+			puts 'message: ' + message.text
+		  else
+		    puts 'message not found'
+		  end
+		when 'games'
+		  @current_user.gamelist.each { |game| puts game.name + ' ' + game.description }
+		when 'purchases'
+		  @current_user.purchases.each { |purchase| puts
+                                  		 puts purchase.time
+		                                 purchase.items.each {
+										 |item, number| puts item.name + ' x' +number.to_s }
+										 puts purchase.price }
+		when 'cart'
+		  cart
+		when 'sort'
+		  @current_user.sort
+		when 'back'
+		  break
+		else
+		  puts 'wrong selection'
+	  end
+	end
+  end
+  
+  def cart
+    loop do
+	  puts
+      puts 'content of your cart:'
+	  @current_user.cart.itemlist.each { |item, number| puts item.name + ' ' + item.price.to_s + ' x' + number.to_s }
+	  puts 'total: ' + @current_user.cart.price.to_s 
+	  puts 'what would you like to do?'
+	  puts 'clear - to clear cart'
+	  puts 'buy - to buy items in a cart'
+	  puts 'remove - to remove item from a cart'
+	  puts 'back - to go back'
+	  action = gets.downcase.rstrip!
+	  case action
+	    when 'clear'
+		  @current_user.clear_cart
+	    when 'buy'
+		  @current_user.buy
+	    when 'remove'
+		  puts 'type item name you want to remove'
+		  name = gets.downcase.rstrip!
+		  item = @current_user.cart.itemlist.keys.find { |i| i.name.downcase == name }
+		  if item.is_a?(Game)
+		    @current_user.remove_from_cart(item)
+		  else
+		    puts 'item not found in your cart'
+		  end
+	    when 'back'
+		  break
+	  end
+	end
+  end
+  
+  def send_message
+    puts
+    puts 'enter name of a receiver'
+	puts 'our current administrators:'
+	@users.each { |user| print user.username + ' ' if user.is_a?(Admin) }
+	puts
+	name = gets.downcase.rstrip!
+	puts 'type topic of a message'
+	topic = gets
+	puts 'type message'
+	message = gets
+	receiver = @users.find { |user| user.username.downcase == name }
+	if (receiver.is_a?(User) || receiver.is_a?(Admin))
+	  @current_user.send_message(text: message, topic: topic, receiver: receiver)
+	  puts 'success! message sent'
+	else
+	  puts 'user does not exist'
+	end
   end
 
   def gamelist_window
+    filter = false
+	lower_value = 0
+	upper_value = 0
     loop do
 	  puts
 	  puts 'the folowing is a list of games we have to offer(name price)'
-	  @games.each{ |game| puts game.name + ' ' + (game.price * @price_modifier[@currency])
+	  if filter
+	    @games.each{ |game| puts game.name + ' ' + (game.price * @price_modifier[@currency])
+	              .round(2).to_s + @currency if game.price.between?(lower_value, upper_value)}
+	  else
+	    @games.each{ |game| puts game.name + ' ' + (game.price * @price_modifier[@currency])
 	              .round(2).to_s + @currency }
+	  end
 	  puts 'what would you like to do?'
 	  puts 'inspect - to further inspect selected game'
 	  puts 'add - to add selected game to your cart'
+      puts 'filter - to filter gamelist by price range'
 	  puts 'back - to return to main window'
 	  action = gets.downcase.rstrip!
 	  case action
@@ -174,6 +293,16 @@ class Shop
 		  end
 		when 'back'
 		  break
+		when 'filter'
+		  puts 'enter lover value'
+		  lower_value = gets.to_i
+		  puts 'enter upper value'
+		  upper_value = gets.to_i
+		  if upper_value >= lower_value
+		    filter = true
+		  else
+		    puts 'wrong values'
+		  end
 	    else
 		  puts 'wrong selection'
 	  end
@@ -199,6 +328,8 @@ class Shop
 	  puts
 	  puts 'what would you like to do?'
 	  puts 'add - to add this game to cart'
+	  puts 'comment - to comment this game'
+	  puts 'rate - to rate this game'
 	  puts 'back - to return to game list window'
 	  action = gets.downcase.rstrip!
 	  case action
@@ -212,6 +343,14 @@ class Shop
 		  end
 		when 'back'
 		  break
+		when 'comment'
+		  puts 'what would you like to say about this game?'
+		  comment = gets.rstrip!
+		  @current_user.comment_game(game: game, text: comment)
+		when 'rate'
+		  puts 'how would you rate this game?'
+		  rate = gets.to_i
+		  @current_user.rate_game(game: game, rating: rate)
 		else
 		  puts 'wrong selection'
       end
@@ -223,8 +362,10 @@ shop = Shop.new
 game = Game.new(name: 'game1', genre: 'Genre test',
                 description: 'Game description test', price: 10)
 user = User.new(username: 'a', password: 'a')
-user2 = User.new(username: 'b', password: 'b')
-game.ratings[user] = 5
+user.balance = 100
+#user.purchases.push(Purchase.new(items: [Game.new(name: 'a', genre: 'b', description: 'c', price: 15)], price: 15))
+user2 = Admin.new(username: 'b', password: 'b')
+#game.ratings[user] = 5
 game.ratings[user2] = 1
 game.comments.push(Comment.new(user: user, id: 2, text: 'labas'))
 game.comments.push(Comment.new(user: user, id: 3, text: 'vakaras'))

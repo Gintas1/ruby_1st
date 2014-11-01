@@ -38,6 +38,10 @@ class Admin < User
   def block_user(user)
     user.blocked = true
   end
+
+  def edit_user_balance(user, balance)
+    user.balance = balance
+  end
   
   def get_user_purchases(user)
     return user.purchases
