@@ -99,4 +99,11 @@ class User
     data[:game].comments.push(Comment.new(user: self, text: data[:text]),
 	                                      id: data[:game].comment_count)
   end
+  
+  def send_message(data)
+    data[:receiver].messages.push(Message.new(sender: self,
+                                              receiver: data[:receiver],
+                                              text: data[:text],
+                                              topic: data[:topic]))
+  end
 end
