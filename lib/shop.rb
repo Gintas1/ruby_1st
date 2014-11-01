@@ -11,8 +11,8 @@ class Shop
     @users = []
 	@games = []
 	@current_user = nil
-	@currency = ['LTL','EUR']
-	@current_currency = 'LTL'
+	@price_modifier = {'LTL' => 1 ,'EUR' => 0.289}
+	@currency = 'LTL'
 	@name = 'pavadinimas'
   end
   

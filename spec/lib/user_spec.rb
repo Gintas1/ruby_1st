@@ -222,11 +222,13 @@ describe User do
   describe 'validation' do
     it 'checks username validation' do
       user = User.new(username: 'test', password: 'test')
-	  expect { user.check_username('test') }.to be true
+	  valid = user.check_username('test')
+	  expect(valid).to be true
     end
     it 'checks username validation' do
       user = User.new(username: 'test', password: 'test')
-	  expect { user.check_data('test', 'test') }.to be true
+      valid = user.check_data('test', 'test')
+	  expect(valid).to be true
     end
   end
 end

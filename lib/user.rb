@@ -109,4 +109,16 @@ class User
                                               topic: data[:topic]),
                                               id: data[:receiver].message_id)
   end
+  
+  def edit_user_balance(user, balance)
+    user.balance = balance
+  end
+  
+  def check_username(name)
+    return @username == name
+  end
+  
+  def check_data(name, password)
+    return @username == name && @password == password
+  end
 end
