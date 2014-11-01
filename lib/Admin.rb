@@ -27,7 +27,7 @@ class Admin < User
     if games.include? game
       games.delete(game)
     else
-      fail standart_error 'list does not contain this game'
+      fail StandartError 'list does not contain this game'
     end
   end
   

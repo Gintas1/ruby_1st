@@ -94,9 +94,7 @@ class User
   end
   
   def comment_game(data)
-    data[:game].comments.push(Comment.new(user: self, text: data[:text]))
-  end
-  def hello
-    shop.users.push('hello')
+    data[:game].comment_count += 1
+    data[:game].comments.push(Comment.new(user: self, text: data[:text]),id: data[:game].comment_count)
   end
 end

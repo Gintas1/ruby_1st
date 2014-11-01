@@ -34,6 +34,11 @@ describe Game do
                       description: 'Game description test', price: 10)
       expect(game.ratings).to match({})
     end
+	it 'checks comment count of a new game' do
+      game = Game.new(name: 'Game name test', genre: 'Genre test',
+                      description: 'Game description test', price: 10)
+      expect(game.comment_count).to eq(0)
+    end
   end
   describe 'receives ratings' do
     it 'checks if a received rating is from a user' do

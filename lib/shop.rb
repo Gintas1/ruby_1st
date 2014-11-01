@@ -13,10 +13,9 @@ class Shop
 	@current_user = nil
 	@currency = ['LTL','EUR']
 	@current_currency = 'LTL'
+	@name = ''
   end
   
   def begin
   end
 end
-shop = Shop.new
-shop.begin

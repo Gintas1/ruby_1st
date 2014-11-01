@@ -1,11 +1,13 @@
 # class for game
 class Game
-  attr_accessor :price, :description, :name, :genre, :comments, :ratings
+  attr_accessor :price, :description, :name, :genre, :comments, :ratings,
+                :comment_count
   def initialize(data)
     @name = data[:name]
     @description = data[:description]
     @genre = data[:genre]
     @price = data[:price]
+	@comment_count = 0
     @comments = []
     @ratings = {}
   end

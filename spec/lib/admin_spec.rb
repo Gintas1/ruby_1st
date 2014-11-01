@@ -79,7 +79,9 @@ describe Admin do
     it 'game that does not exist' do
       shop = Shop.new
       admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
-	  expect {admin.remove_game(game,shop.games)}.to raise_error
+      game = Game.new(name: 'Game name test', genre: 'Genre test',
+                               description: 'Game description test', price: 10)
+	  expect { admin.remove_game(game, shop.games) }.to raise_error
     end
   end
   describe 'blocks' do
