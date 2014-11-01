@@ -98,4 +98,18 @@ describe Admin do
 	  expect { admin.block_user(user) }.to change { user.blocked }.from(false).to(true)
     end
   end
+  describe 'gets' do
+    it 'user purchase list' do
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+      user = User.new(username: 'test', password: 'test')
+      user_purchases = admin.get_user_purchases(user)
+      expect(user_purchases).to match_array([])
+    end
+    it 'user info' do
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+      user = User.new(username: 'test', password: 'test')
+      user_info = admin.get_user_info(user)
+      expect(user_info).to match_array(['test', 0, []])
+    end
+  end
 end
