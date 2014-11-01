@@ -19,3 +19,9 @@ class Shop
   def begin
   end
 end
+
+shop = Shop.new
+#shop.begin
+admin = Admin.new(username: 'test', password: 'test')
+admin.sort
+puts 'ello'

@@ -15,7 +15,7 @@ class Game
   def rate(data)
     return unless check_user(data[:user]) && check_rating(data[:rating])
     if ratings.key?(data[:user])
-      fail StandartError, 'this user has already rated'
+      puts 'this user has already rated'
     else
       @ratings[data[:user]] = data[:rating]
     end
@@ -25,7 +25,7 @@ class Game
     if user.is_a? User
       return true
     else
-      fail TypeError, 'This is not a user'
+      puts 'This is not a user'
     end
   end
 
@@ -33,7 +33,7 @@ class Game
     if (0..5).include?(rating)
       return true
     else
-      fail StandartError, 'raiting is not valid'
+      puts 'raiting is not valid'
     end
   end
 end

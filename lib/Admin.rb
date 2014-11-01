@@ -1,5 +1,5 @@
 #class for admin user
-require 'user'
+require_relative 'user'
 class Admin < User
   attr_accessor :admin_granted
   def initialize(data)
@@ -31,7 +31,7 @@ class Admin < User
     if games.include? game
       games.delete(game)
     else
-      fail StandartError 'list does not contain this game'
+      puts 'list does not contain this game'
     end
   end
   

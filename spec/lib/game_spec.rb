@@ -44,13 +44,13 @@ describe Game do
     it 'checks if a received rating is from a user' do
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
-      expect { game.rate(user: 1, rating: 1) }.to raise_error
+      expect { game.rate(user: 1, rating: 1) }.to output.to_stdout
     end
-    it 'checks if error was raised if received rating is invalid' do
+    it 'checks if message was output if received rating is invalid' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
-      expect { game.rate(user: user, rating: 6) }.to raise_error
+      expect { game.rate(user: user, rating: 6) }.to output.to_stdout
     end
     it 'checks if ratings has changed oafter receiving a valid rating' do
       user = User.new(username: 'test', password: 'test')
@@ -58,12 +58,12 @@ describe Game do
                       description: 'Game description test', price: 10)
       expect { game.rate(user: user, rating: 4) }.to change { game.ratings }
     end
-    it 'checks if error was raised after rating a game second time' do
+    it 'checks if message was output after rating a game second time' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
       game.rate(user: user, rating: 5)
-      expect { game.rate(user: user, rating: 5) }.to raise_error
+      expect { game.rate(user: user, rating: 5) }.to output.to_stdout
     end
   end
 end

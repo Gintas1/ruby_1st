@@ -47,9 +47,9 @@ describe User do
       user.add_to_cart(game)
       expect(user.cart.itemlist).to include(game)
     end
-    it 'checks if error is raised if item is not a Game type'do
+    it 'checks if message was output if item is not a Game type'do
       user = User.new(username: 'test', password: 'test')
-      expect { user.add_to_cart(1) }.to raise_error
+      expect { user.add_to_cart(1) }.to output.to_stdout
     end
     it 'checks if two items were added' do
       user = User.new(username: 'test', password: 'test')
@@ -82,12 +82,12 @@ describe User do
     end
   end
   describe 'removes item from cart' do
-    it 'raises error if item is not in a cart' do
+    it 'outputs message if item is not in a cart' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
       user.add_to_cart(game)
-      expect { user.remove_from_cart(1) }.to raise_error
+      expect { user.remove_from_cart(1) }.to output.to_stdout
     end
     it 'checks if cart price changes after removing item from a cart' do
       user = User.new(username: 'test', password: 'test')
@@ -105,11 +105,11 @@ describe User do
       expect { user.remove_from_cart(game) }
               .to change { user.cart.itemlist }.to([])
     end
-    it 'checks if error is raised after removing item that is not in a cart' do
+    it 'checks if message was output after removing item that is not in a cart' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
-      expect { user.remove_from_cart(game) }.to raise_error
+      expect { user.remove_from_cart(game) }.to output.to_stdout
     end
   end
   describe 'change user balance' do
@@ -120,17 +120,17 @@ describe User do
     end
   end
   describe 'buys items in a cart' do
-    it 'checks if error is raised after trying to buy an empty cart' do
+    it 'checks if message was output after trying to buy an empty cart' do
       user = User.new(username: 'test', password: 'test')
-      expect { user.buy }.to raise_error
+      expect { user.buy }.to output.to_stdout
     end
-    it 'checks if error is raised after buying a cart with insuficent
+    it 'checks if message was output after buying a cart with insuficent
         balance' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
       user.add_to_cart(game)
-      expect { user.buy }.to raise_error
+      expect { user.buy }.to output.to_stdout
     end
     it 'checks if user balance has changed after buying a cart' do
       user = User.new(username: 'test', password: 'test')
@@ -159,9 +159,9 @@ describe User do
                          description: 'Game description test', price: 10))
       expect { user.sort }.to change { user.gamelist }
     end
-    it 'checks if error is raised after trying to sort an empty gamelist ' do
+    it 'checks if message was output after trying to sort an empty gamelist ' do
       user = User.new(username: 'test', password: 'test')
-      expect { user.sort }.to raise_error
+      expect { user.sort }.to output.to_stdout
     end
   end
   describe 'purchase info' do
@@ -176,15 +176,15 @@ describe User do
     end
   end
   describe 'rates a game' do
-    it 'checks if error is raised after rating something that is not a game' do
+    it 'checks if message was output after rating something that is not a game' do
       user = User.new(username: 'test', password: 'test')
-      expect { user.rate_game(game: 0, rating: 0) }.to raise_error
+      expect { user.rate_game(game: 0, rating: 0) }.to output.to_stdout
     end
-    it 'checks if error was raised after rating a game with invalid data' do
+    it 'checks if message was output after rating a game with invalid data' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
-      expect { user.rate_game(game: game, rating: 6) }.to raise_error
+      expect { user.rate_game(game: game, rating: 6) }.to output.to_stdout
     end
     it 'checks if rating was added after user rated the game' do
       user = User.new(username: 'test', password: 'test')

@@ -24,7 +24,7 @@ class User
         @cart.price += amount * item.price
       end
     else
-      fail TypeError, 'item should be instance of a game'
+      puts 'item should be instance of a game'
     end
   end
 
@@ -39,10 +39,10 @@ class User
         @cart.price -= item.price * @cart.itemlist[item]
         @cart.itemlist.delete(item)
       else
-        fail StandartError, 'item you want to remove is not in a list'
+        puts 'item you want to remove is not in a list'
       end
     else
-      fail TypeError, 'item instance is not a type of a Game'
+      puts 'item instance is not a type of a Game'
     end
   end
 
@@ -59,7 +59,7 @@ class User
 
   def check_cart
     if @cart.itemlist.empty?
-      fail StandartError, 'your cart is empty'
+      puts 'your cart is empty'
     else
       true
     end
@@ -67,7 +67,7 @@ class User
 
   def check_balance
     if @cart.price > @balance
-      fail StandartError, 'insufficient balance'
+      puts 'insufficient balance'
     else
       true
     end
@@ -75,7 +75,7 @@ class User
 
   def sort
     if @gamelist == []
-      fail StandartError, 'Game list is empty'
+      puts 'Game list is empty'
     else
       @gamelist.sort! { |a, b| a.name.downcase <=> b.name.downcase }
     end
@@ -86,10 +86,10 @@ class User
       if (0..5).include? data[:rating]
         data[:game].rate(user: self, rating: data[:rating])
       else
-        fail StandartError, 'your rating is not in valid range'
+        puts 'your rating is not in valid range'
       end
     else
-      fail TypeError, 'this is not a game'
+      puts 'this is not a game'
     end
   end
   

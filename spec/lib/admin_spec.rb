@@ -88,7 +88,7 @@ describe Admin do
       admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                                description: 'Game description test', price: 10)
-	  expect { admin.remove_game(game, shop.games) }.to raise_error
+	  expect { admin.remove_game(game, shop.games) }.to output.to_stdout
     end
   end
   describe 'blocks' do
