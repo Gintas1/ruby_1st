@@ -219,4 +219,14 @@ describe User do
 	  expect(receiver.messages).to include(Message)
     end
   end
+  describe 'validation' do
+    it 'checks username validation' do
+      user = User.new(username: 'test', password: 'test')
+	  expect { user.check_username('test') }.to be true
+    end
+    it 'checks username validation' do
+      user = User.new(username: 'test', password: 'test')
+	  expect { user.check_data('test', 'test') }.to be true
+    end
+  end
 end
