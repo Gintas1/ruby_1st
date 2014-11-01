@@ -66,4 +66,21 @@ describe Admin do
 	          .to change { game.description }.from('Game description test').to('test')	
     end
   end
+  describe 'removes' do
+    it 'game from shop' do
+      shop = Shop.new
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+	  shop.games.push(Game.new(name: 'Game name test', genre: 'Genre test',
+                               description: 'Game description test', price: 10))
+      admin.remove_game(game)
+      expect(admin.games).not_to include(game)
+    end
+  end
+  describe 'blocks' do
+    it 'user' do
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+      user = User.new(username: 'test', password: 'test')
+	  expect { admin.block_user }.to change { user.blocked }.from(false).to(true)
+    end
+  end
 end
