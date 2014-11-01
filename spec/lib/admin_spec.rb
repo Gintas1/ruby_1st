@@ -65,6 +65,13 @@ describe Admin do
       expect { admin.edit_game_description(game, 'test') }
 	          .to change { game.description }.from('Game description test').to('test')	
     end
+    it 'comment' do
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+      comment = Comment.new(text: 'text test',
+	                        user: User.new(username: 'test', password: 'test'),
+							id: 1)
+      expect { admin.edit_comment(comment, 'text') }.to change { comment.text }.from('text test').to('text')
+    end
   end
   describe 'removes' do
     it 'game from shop' do
