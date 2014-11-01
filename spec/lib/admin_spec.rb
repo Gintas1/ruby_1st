@@ -70,17 +70,23 @@ describe Admin do
     it 'game from shop' do
       shop = Shop.new
       admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
-	  shop.games.push(Game.new(name: 'Game name test', genre: 'Genre test',
-                               description: 'Game description test', price: 10))
-      admin.remove_game(game)
-      expect(admin.games).not_to include(game)
+      game = Game.new(name: 'Game name test', genre: 'Genre test',
+                               description: 'Game description test', price: 10)
+	  shop.games.push(game)
+      admin.remove_game(game, shop.games)
+      expect(shop.games).not_to include(game)
+    end
+    it 'game that does not exist' do
+      shop = Shop.new
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+	  expect {admin.remove_game(game,shop.games)}.to raise_error
     end
   end
   describe 'blocks' do
     it 'user' do
       admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
       user = User.new(username: 'test', password: 'test')
-	  expect { admin.block_user }.to change { user.blocked }.from(false).to(true)
+	  expect { admin.block_user(user) }.to change { user.blocked }.from(false).to(true)
     end
   end
 end

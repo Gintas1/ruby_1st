@@ -22,5 +22,17 @@ class Admin < User
   def add_admin(data)
     Admin.new(data)
   end
+  
+  def remove_game(game, games)
+    if games.include? game
+      games.delete(game)
+    else
+      fail standart_error 'list does not contain this game'
+    end
+  end
+  
+  def block_user(user)
+    user.blocked = true
+  end
 
 end
