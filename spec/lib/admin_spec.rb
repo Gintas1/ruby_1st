@@ -62,9 +62,8 @@ describe Admin do
       admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
       game = admin.add_game(name: 'Game name test', genre: 'Genre test',
                             description: 'Game description test', price: 10)
-      admin.edit_game_description(game)
       expect { admin.edit_game_description(game, 'test') }
-	          .to change { game.desctiption }.from('Game description test').to('test')	
+	          .to change { game.description }.from('Game description test').to('test')	
     end
   end
 end

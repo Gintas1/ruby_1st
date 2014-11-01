@@ -50,9 +50,11 @@ class User
     return unless check_cart && check_balance
     @balance -= cart.price
     cart.itemlist.each { |x,y| y.times{@gamelist.push(x)} }
-    @purchases.push(Purchase.new(price:cart.price, items: cart.itemlist.dup))
+	purch = Purchase.new(price:cart.price, items: cart.itemlist.dup)
+    @purchases.push(purch)
     clear_cart
     sort
+	return purch
   end
 
   def check_cart
@@ -93,5 +95,8 @@ class User
   
   def comment_game(data)
     data[:game].comments.push(Comment.new(user: self, text: data[:text]))
+  end
+  def hello
+    shop.users.push('hello')
   end
 end
