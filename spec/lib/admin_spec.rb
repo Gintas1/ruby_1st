@@ -42,9 +42,29 @@ describe Admin do
       admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
       game = admin.add_game(name: 'Game name test', genre: 'Genre test',
                             description: 'Game description test', price: 10)
-      expect(game).to have_attriutes(name: 'Game name test', genre: 'Genre test',
-                                     description: 'Game description test', price: 10,
-                                     comments: [], ratings: {})
+      expect(game).to be_a(Game)
+    end
+    it 'new admin' do
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+      new_admin = admin.add_admin(username: 'test', password: 'test', admin_granted: admin)
+      expect(new_admin).to be_a(Admin)
+    end
+  end
+  describe 'edits' do
+    it 'game price' do
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+      game = admin.add_game(name: 'Game name test', genre: 'Genre test',
+                            description: 'Game description test', price: 10)
+      admin.edit_game_price(game, 5)
+      expect(game.price).to eq(5)
+    end
+    it 'game description' do
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+      game = admin.add_game(name: 'Game name test', genre: 'Genre test',
+                            description: 'Game description test', price: 10)
+      admin.edit_game_description(game)
+      expect { admin.edit_game_description(game, 'test') }
+	          .to change { game.desctiption }.from('Game description test').to('test')	
     end
   end
 end
