@@ -2,7 +2,7 @@
 class User
   attr_accessor :username, :password, :balance,
                 :cart, :gamelist, :purchases,
-                :blocked, :messages
+                :blocked, :messages, :message_id
   def initialize(data)
     @username = data[:username]
     @password = data[:password]
@@ -12,6 +12,7 @@ class User
     @purchases = []
 	@blocked = false
 	@messages = []
+	@message_id = 0
 	
   end
 
@@ -101,9 +102,11 @@ class User
   end
   
   def send_message(data)
+    data[:receiver].message_id += 1
     data[:receiver].messages.push(Message.new(sender: self,
                                               receiver: data[:receiver],
                                               text: data[:text],
-                                              topic: data[:topic]))
+                                              topic: data[:topic]),
+                                              id: data[:receiver].message_id)
   end
 end

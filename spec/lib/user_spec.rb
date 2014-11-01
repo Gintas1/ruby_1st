@@ -32,9 +32,13 @@ describe User do
       user = User.new(username: 'test', password: 'test')
       expect(user.blocked).to be false
     end
-	it 'checks if created user is not blocked' do
+    it 'checks if created user message array' do
       user = User.new(username: 'test', password: 'test')
       expect(user.messages).to match_array([])
+    end
+    it 'checks if created user has message id' do
+      user = User.new(username: 'test', password: 'test')
+      expect(user.message_id).to eq(0)
     end
   end
   describe 'adds item to cart' do

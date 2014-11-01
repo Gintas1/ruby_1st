@@ -72,6 +72,11 @@ describe Admin do
 							id: 1)
       expect { admin.edit_comment(comment, 'text') }.to change { comment.text }.from('text test').to('text')
     end
+    it 'user balance' do
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+      user = User.new(username: 'test', password: 'test', admin_granted: 'test')
+      expect { admin.edit_user_balance(user, 10) }.to change { user.balance }.from(0).to(10)
+    end
   end
   describe 'removes' do
     it 'game from shop' do
