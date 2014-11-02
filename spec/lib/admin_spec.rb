@@ -120,7 +120,7 @@ describe Admin do
       admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
       user = User.new(username: 'test', password: 'test')
       user_info = admin.get_user_info(user)
-      expect(user_info).to match_array(['test', 0, []])
+      expect(user_info).to match_array(['test', 0, [], false])
     end
   end
 end

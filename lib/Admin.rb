@@ -15,7 +15,7 @@ class Admin < User
     game.price = price
   end
   
-  def edit_game_description(game,description)
+  def edit_game_description(game, description)
     game.description = description
   end
   
@@ -52,7 +52,7 @@ class Admin < User
   end
   
   def get_user_info(user)
-    return [user.username, user.balance, user.gamelist]
+    return [user.username, user.balance, user.gamelist, user.blocked]
   end
 
 end

@@ -1,0 +1,57 @@
+--- !ruby/object:Shop
+sales: []
+users:
+- !ruby/object:User
+  username: a
+  password: a
+  balance: 100
+  cart: !ruby/object:Cart
+    itemlist: {}
+    price: 0
+  gamelist: []
+  purchases: []
+  blocked: false
+  messages: []
+  message_id: 0
+- !ruby/object:Admin
+  username: b
+  password: b
+  balance: 100
+  cart: !ruby/object:Cart
+    itemlist: {}
+    price: 0
+  gamelist: []
+  purchases: []
+  blocked: false
+  messages: []
+  message_id: 0
+  admin_granted: 
+- !ruby/object:Admin
+  username: user
+  password: password
+  balance: 0
+  cart: !ruby/object:Cart
+    itemlist: {}
+    price: 0
+  gamelist: []
+  purchases: []
+  blocked: false
+  messages: []
+  message_id: 0
+  admin_granted: 
+games:
+- !ruby/object:Game
+  name: game1
+  description: Game description test
+  genre: Genre test
+  price: 10
+  comment_count: 0
+  comments: []
+  ratings: {}
+current_user: 
+price_modifier:
+  LTL: 1
+  EUR: 0.289
+currency: LTL
+name: pavadinimas
+

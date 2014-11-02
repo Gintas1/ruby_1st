@@ -52,7 +52,7 @@ class User
     return unless check_cart && check_balance
     @balance -= cart.price
     cart.itemlist.each { |x,y| y.times{@gamelist.push(x)} }
-	purch = Purchase.new(price:cart.price, items: cart.itemlist.dup)
+	purch = Purchase.new(price:cart.price, items: cart.itemlist.dup, buyer: self)
     @purchases.push(purch)
     clear_cart
     sort
