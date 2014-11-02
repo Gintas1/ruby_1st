@@ -102,6 +102,12 @@ describe Admin do
       user = User.new(username: 'test', password: 'test')
 	  expect { admin.block_user(user) }.to change { user.blocked }.from(false).to(true)
     end
+	it 'unblocks user' do
+      admin = Admin.new(username: 'test', password: 'test', admin_granted: 'test')
+      user = User.new(username: 'test', password: 'test')
+	  user.blocked = true
+	  expect { admin.unblock_user(user) }.to change { user.blocked }.from(true).to(false)
+    end
   end
   describe 'gets' do
     it 'user purchase list' do
