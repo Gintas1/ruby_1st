@@ -24,7 +24,7 @@ class Admin < User
   end
   
   def add_admin(data)
-    Admin.new(data)
+    Admin.new(username: data[:username], password: data[:password] , admin_granted: self)
   end
   
   def remove_game(game, games)
@@ -37,6 +37,10 @@ class Admin < User
   
   def block_user(user)
     user.blocked = true
+  end
+  
+  def unblock_user(user)
+    user.blocked = false
   end
 
   def edit_user_balance(user, balance)
