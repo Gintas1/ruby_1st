@@ -10,29 +10,23 @@ class User
     @cart = Cart.new
     @gamelist = []
     @purchases = []
-	@blocked = false
-	@messages = []
-	@message_id = 0
-	
+    @blocked = false
+    @messages = []
+    @message_id = 0
   end
 
   def add_to_cart(item, amount = 1)
-    if item.is_a?(Game)
-      if cart.itemlist.include? item
-        @cart.itemlist[item] += amount
-        @cart.price += amount * item.price
-      else
-        @cart.itemlist[item] = amount
-        @cart.price += amount * item.price
-      end
+    if cart.itemlist.include? item
+      @cart.itemlist[item] += amount
+      @cart.price += amount * item.price
     else
-      puts 'item should be instance of a game'
+      @cart.itemlist[item] = amount
+      @cart.price += amount * item.price
     end
   end
 
   def clear_cart
-    @cart.price = 0
-    @cart.itemlist = {}
+    @cart.clear
   end
 
   def remove_from_cart(item)
@@ -51,12 +45,12 @@ class User
   def buy
     return unless check_cart && check_balance
     @balance -= cart.price
-    cart.itemlist.each { |x,y| y.times{@gamelist.push(x)} }
-	purch = Purchase.new(price:cart.price, items: cart.itemlist.dup, buyer: self)
+    cart.itemlist.each { |x, y| y.times { @gamelist.push(x.clone) } }
+    purch = Purchase.new(price: cart.price, items: cart.itemlist.dup,
+                         buyer: self)
     @purchases.push(purch)
     clear_cart
-    sort
-	return purch
+    purch
   end
 
   def check_cart
@@ -94,13 +88,11 @@ class User
       puts 'this is not a game'
     end
   end
-  
+
   def comment_game(data)
-    data[:game].comment_count += 1
-    data[:game].comments.push(Comment.new(user: self, text: data[:text],
-	                                      id: data[:game].comment_count))
+    data[:game].add_comment(text: data[:text], user: self)
   end
-  
+
   def send_message(data)
     data[:receiver].message_id += 1
     data[:receiver].messages.push(Message.new(sender: self,
@@ -111,10 +103,10 @@ class User
   end
 
   def check_username(name)
-    return @username == name
+    @username == name
   end
-  
+
   def check_data(name, password)
-    return @username == name && @password == password
+    @username == name && @password == password
   end
 end

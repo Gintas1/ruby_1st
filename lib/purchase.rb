@@ -1,4 +1,4 @@
-#class for user purchase
+# class for user purchase
 class Purchase
   attr_accessor :time, :items, :price, :buyer
   def initialize(data)
@@ -7,5 +7,4 @@ class Purchase
     @items = data[:items]
     @price = data[:price]
   end
-
 end

@@ -2,6 +2,35 @@ require 'rspec'
 require 'spec_helper'
 require 'user'
 
+RSpec::Matchers.define :be_a_sum_of_prices do |sum|
+  match do |elements|
+    price = 0
+    elements.each { |item, amount| price += item.price * amount }
+    price == sum
+  end
+end
+
+RSpec::Matchers.define :be_eq_to_user_message_id do |comment_num|
+  match do |messages|
+    max = messages.max { |a, b| a.id <=> b.id }
+    max.id <= comment_num
+  end
+end
+
+RSpec::Matchers.define :be_include_a_clone_of do |game_clone|
+  match do |games|
+    games.any? do |game|
+      game.name == game_clone.name &&
+      game.description == game_clone.description &&
+      game.genre == game_clone.genre &&
+      game.price == game_clone.price &&
+      game.comment_count == game_clone.comment_count &&
+      game.comments == game_clone.comments &&
+      game.ratings == game_clone.ratings
+    end
+  end
+end
+
 describe User do
   describe '#initialize' do
     it 'checks username' do
@@ -48,6 +77,14 @@ describe User do
                       description: 'Game description test', price: 10)
       expect { user.add_to_cart(game) }.to change { user.cart.price }.by(10)
     end
+    it 'checks if cart price is equal to sum of all item prices' do
+      user = User.new(username: 'test', password: 'test')
+      game1 = Game.new(name: 'a', genre: 'b', description: 'c', price: 10)
+      game2 = Game.new(name: 'a', genre: 'b', description: 'c', price: 20)
+      user.add_to_cart(game1, 5)
+      user.add_to_cart(game2, 2)
+      expect(user.cart.itemlist).to be_a_sum_of_prices(user.cart.price)
+    end
     it 'checks if item is in a cart after adding it' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
@@ -55,22 +92,20 @@ describe User do
       user.add_to_cart(game)
       expect(user.cart.itemlist).to include(game)
     end
-    it 'checks if message was output if item is not a Game type'do
-      user = User.new(username: 'test', password: 'test')
-      expect { user.add_to_cart(1) }.to output.to_stdout
-    end
     it 'checks if two items were added' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
-      expect { user.add_to_cart(game, 2) }.to change { user.cart.itemlist[game]}.to(2)
+      expect { user.add_to_cart(game, 2) }
+              .to change { user.cart.itemlist[game] }.to(2)
     end
     it 'checks if two items were added if item was already in a cart' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
       user.add_to_cart(game, 1)
-      expect { user.add_to_cart(game, 2) }.to change { user.cart.itemlist[game]}.to(3)
+      expect { user.add_to_cart(game, 2) }
+              .to change { user.cart.itemlist[game] }.to(3)
     end
     it 'checks if cart price is 0 after clearing it' do
       user = User.new(username: 'test', password: 'test')
@@ -101,7 +136,7 @@ describe User do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
-      user.add_to_cart(game,2)
+      user.add_to_cart(game, 2)
       expect { user.remove_from_cart(game) }
              .to change { user.cart.price }.by(-20)
     end
@@ -113,7 +148,7 @@ describe User do
       expect { user.remove_from_cart(game) }
               .to change { user.cart.itemlist }.to([])
     end
-    it 'checks if message was output after removing item that is not in a cart' do
+    it 'checks if message was output after removing non existing item' do
       user = User.new(username: 'test', password: 'test')
       game = Game.new(name: 'Game name test', genre: 'Genre test',
                       description: 'Game description test', price: 10)
@@ -155,7 +190,7 @@ describe User do
       user.add_to_cart(game)
       user.balance = 10
       user.buy
-      expect(user.gamelist).to include(game)
+      expect(user.gamelist).to be_include_a_clone_of(game)
     end
   end
   describe 'sorts games in gamelist' do
@@ -184,7 +219,7 @@ describe User do
     end
   end
   describe 'rates a game' do
-    it 'checks if message was output after rating something that is not a game' do
+    it 'checks if message was output after rating not a game' do
       user = User.new(username: 'test', password: 'test')
       expect { user.rate_game(game: 0, rating: 0) }.to output.to_stdout
     end
@@ -212,23 +247,29 @@ describe User do
     end
   end
   describe 'sends a message' do
+    it 'checks if highest comment id is eq or less to comment nummber' do
+      user = User.new(username: 'test', password: 'test')
+      user.send_message(topic: 'topic', text: 'text', receiver: user)
+      user.send_message(topic: 'topic', text: 'text', receiver: user)
+      expect(user.messages).to be_eq_to_user_message_id(user.message_id)
+    end
     it 'checks if message was sent' do
       sender = User.new(username: 'test', password: 'test')
       receiver = User.new(username: 'test', password: 'test')
       sender.send_message(topic: 'topic', text: 'text', receiver: receiver)
-	  expect(receiver.messages).to include(Message)
+      expect(receiver.messages).to include(Message)
     end
   end
   describe 'validation' do
     it 'checks username validation' do
       user = User.new(username: 'test', password: 'test')
-	  valid = user.check_username('test')
-	  expect(valid).to be true
+      valid = user.check_username('test')
+      expect(valid).to be true
     end
     it 'checks username validation' do
       user = User.new(username: 'test', password: 'test')
       valid = user.check_data('test', 'test')
-	  expect(valid).to be true
+      expect(valid).to be true
     end
   end
 end

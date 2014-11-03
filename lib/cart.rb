@@ -5,4 +5,9 @@ class Cart
     @itemlist = {}
     @price = 0
   end
+
+  def clear
+    @price = 0
+    @itemlist = {}
+  end
 end

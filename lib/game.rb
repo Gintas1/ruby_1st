@@ -7,7 +7,7 @@ class Game
     @description = data[:description]
     @genre = data[:genre]
     @price = data[:price]
-	@comment_count = 0
+    @comment_count = 0
     @comments = []
     @ratings = {}
   end
@@ -35,5 +35,11 @@ class Game
     else
       puts 'raiting is not valid'
     end
+  end
+
+  def add_comment(data)
+    @comment_count += 1
+    @comments.push(Comment.new(user: data[:user], text: data[:text],
+                               id: comment_count))
   end
 end
