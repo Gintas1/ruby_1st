@@ -1,656 +1,362 @@
+require_relative 'purchase'
 require_relative 'user'
-require_relative 'admin'
 require_relative 'game'
 require_relative 'comment'
-require_relative 'purchase'
-require_relative 'message'
 require_relative 'cart'
-require 'yaml'
+require_relative 'message'
 # main game class
 class Shop
-  attr_accessor :users, :games, :current_user, :name, :price_modifier,
-                :currency, :sales
+  attr_accessor :current_user, :name, :price_modifier, :currency
 
   def initialize
-    @sales = []
-    @users = []
-    @games = []
+    User.load_from_file
+    Game.load_from_file
+    Purchase.load_from_file
     @current_user = nil
     @price_modifier = { 'LTL' => 1, 'EUR' => 0.289 }
     @currency = 'LTL'
     @name = 'pavadinimas'
+    start
   end
 
-  def begin
+  def start
     puts 'welcome to online store ' + @name
     loop do
       puts
-      puts 'what would you like to do?'
-      puts 'reg - register'
-      puts 'login - to login'
-      puts 'exit - to exit'
+      puts 'type "help", to get help'
       action = gets.downcase.rstrip!
       case action
-      when 'reg'
+      when 'register'
         register
+      when 'logout'
+        logout
+      when 'delete'
+        delete
+      when 'help'
+        help
       when 'login'
         login
+      when 'users'
+        users
+      when 'add_game'
+        add_game
+      when 'games'
+        games
+      when 'block'
+        block
+      when 'unblock'
+        unblock
+      when 'inspect'
+        inspect
+      when 'rate_game'
+        rate_game
+      when 'comment'
+        comment_game
+      when 'add_to_cart'
+        add_to_cart
+      when 'view_cart'
+        view_cart
+      when 'clear_cart'
+        clear_cart
+      when 'edit_balance'
+        edit_balance
+      when 'buy'
+        buy
+      when 'gamelist'
+        view_gamelist
+      when 'purchases'
+        view_purchases
+      when 'sales'
+        view_sales
+      when 'Remove_game'
+        remove_game
       when 'exit'
-        save
+        logout if @current_user && @current_user.logged_in
         break
       else
         puts 'wrong action'
-        puts
       end
     end
   end
 
-  def save
-    File.open('shop.yaml', 'w') do |file|
-      file.puts YAML.dump(self)
-      file.puts ''
+  def help
+    puts 'register - to register'
+    puts 'login - to login'
+    puts 'logout - to logout'
+    puts 'delete - to delete your account'
+    puts 'Users - to see a list of all users'
+    puts 'Games - to view all games'
+    puts 'exit - to exit'
+    puts 'inspect - to further inspect a selected game'
+    puts 'rate_game - to rate a game'
+    puts 'comment - to comment selected game'
+    puts 'Add_to_cart - to add item to cart'
+    puts 'View_cart - to view your cart'
+    puts 'clear_cart - to clear your cart'
+    puts 'buy - to buy a content of your cart'
+    puts 'gamelist - to view your gamelist'
+    puts 'purchases - to view your purchases'
+    return unless admin?
+    puts 'Admin commands:'
+    puts 'Remove_game - to remove a game from the shop'
+    puts 'sales - to view sales'
+    puts 'Add_game - to create a new game'
+    puts 'block - to block selected user'
+    puts 'unblock - to unblock selected user'
+    puts 'edit_balance - to edit users balance'
+  end
+
+  def buy
+    if @current_user
+      @current_user.buy
+    else
+      puts 'you need to login to buy something'
+    end
+  end
+
+  def remove_game
+    return unless admin?
+    puts 'enter ID of a game you want to remove'
+    id = gets.to_i
+    if !(game = Game.get_by_id(id)).nil?
+      game.delete
+    else
+      puts 'could not find item with such ID'
+    end
+  end
+
+  def view_sales
+    return unless admin?
+    Purchase.sale_info.each do |sale|
+      puts "ID: #{sale.id}\nBuyer:#{sale.buyer.username}\nTime:#{sale.time}\n"\
+           "Price: #{sale.price}\nItems bought:"
+      sale.items.each { |item, amount| puts "#{item.name} x#{amount}" }
+      puts
+    end
+  end
+
+  def view_gamelist
+    if @current_user
+      @current_user.gamelist.each do |game|
+        puts "Name: #{game.name}, Genre #{game.genre}"
+      end
+    else
+      puts 'you need to login to view your gamelist'
+    end
+  end
+
+  def view_purchases
+    if @current_user
+      @current_user.purchases.each do |purchase|
+        puts "ID: #{purchase.id}\nTime: #{purchase.time}\n"\
+             "price: #{purchase.price}\nItems:"
+        purchase.items.each { |item, amount| puts "#{item.name} x#{amount}" }
+        puts
+      end
+    else
+      puts 'you need to login to view your purchase'
+    end
+  end
+
+  def edit_balance
+    return unless admin?
+    puts 'enter ID of a user whos balance you want to edit'
+    id = gets.to_i
+    if !(user = User.get_by_id(id)).nil?
+      puts 'enter a new balance'
+      user.edit_balance(gets.to_i)
+    else
+      puts 'could not find user with such ID'
+    end
+  end
+
+  def add_to_cart
+    if @current_user
+      puts 'One by one enter ID of an item you want to add and amount'
+      id = gets.to_i
+      amount = gets.to_i
+      @current_user.add_to_cart(id, amount)
+    else
+      puts 'login to add items to cart'
+    end
+  end
+
+  def view_cart
+    if @current_user
+      @current_user.cart.itemlist.each { |x, y| puts "#{x.name} x#{y}" }
+      puts "Price: #{@current_user.cart.price}"
+    else
+      puts 'you need to login to view your cart'
+    end
+  end
+
+  def clear_cart
+    if @current_user
+      @current_user.clear_cart
+      puts 'your cart was cleared'
+    else
+      puts 'you need to login to clear your cart'
+    end
+  end
+
+  def rate_game
+    return unless @current_user
+    puts 'enter ID of a game you want to inspect'
+    id = gets.to_i
+    if !(game = Game.get_by_id(id)).nil?
+      puts 'enter a rating from 1 to 5'
+      rating = gets.to_i
+      game.rate(user: @current_user, rating: rating)
+    else
+      puts 'game with such ID does not exist'
+    end
+  end
+
+  def comment_game
+    return unless @current_user
+    puts 'enter ID of a game you want to comment'
+    id = gets.to_i
+    if !(game = Game.get_by_id(id)).nil?
+      puts 'What would you like to say about this game?'
+      text = gets.rstrip!
+      game.add_comment(@current_user.id, text)
+    else
+      puts 'game with such ID does not exist'
+    end
+  end
+
+  def inspect
+    puts 'enter ID of a game you want to inspect'
+    id = gets.to_i
+    if !(game = Game.get_by_id(id)).nil?
+      puts "ID: #{game.id}\nName: #{game.name}\nGenre: #{game.genre}\n"\
+           "Description: #{game.description}\nPrice: #{game.price}\n"\
+           "Rating: #{game.rating}\nComments(ID, name, time, comment):"
+      game.comments.each do |comment|
+        puts "#{comment.id}, #{comment.user.username}, #{comment.time}"\
+             "#{comment.text}\n"
+      end
+    else
+      puts 'game with such ID does not exist'
+    end
+  end
+
+  def block
+    return unless admin?
+    puts 'Enter an ID of a iser you want to block'
+    id = gets.to_i
+    if !(user = User.get_by_id(id)).nil?
+      user.block
+      puts "You have blocked user: #{user.username}"
+    else
+      puts 'user with such id does not exist'
+    end
+  end
+
+  def unblock
+    return unless admin?
+    puts 'Enter an ID of a iser you want to unblock'
+    id = gets.to_i
+    if !(user = User.get_by_id(id)).nil?
+      user.unblock
+      puts "You have unblocked user: #{user.username}"
+    else
+      puts 'user with such id does not exist'
+    end
+  end
+
+  def games
+    puts 'folowing is a list of all games (id, name, genre, price):'
+    Game.all_games.each do |game|
+      puts "#{game.id}, #{game.name}, #{game.genre} #{game.price}"
+    end
+  end
+
+  def add_game
+    return unless admin?
+    data = game_data
+    if Game.new_game(data[0], data[1], data[2], data[3])
+      puts 'game succesfuly created'
+    else
+      puts 'Something is wrong, game was not created'
+    end
+  end
+
+  def game_data
+    puts 'One by one enter (Name, Description, genre, price) of a new game'
+    name = gets.rstrip!
+    description = gets.rstrip!
+    genre = gets.rstrip!
+    price = gets.to_f
+    [name, description, genre, price]
+  end
+
+  def users
+    if @current_user
+      puts
+      puts 'User list (id, username, status):'
+      User.all_users.each do |user|
+        puts "#{user.id}, #{user.username},  #{user.admin ? 'Admin' : 'User'}"\
+             ", #{user.blocked ? 'Blocked' : 'Not blocked'}"
+      end
+    else
+      puts 'you need to login to view all users'
     end
   end
 
   def register
     puts 'enter username:'
-    username = gets.downcase.rstrip!
+    username = gets.rstrip!
     puts 'enter password'
-    password = gets.downcase.rstrip!
-    if @users.any? { |user| user.check_username(username) }
-      puts 'username is already in use'
-      puts
+    password = gets.rstrip!
+    if User.register(username, password)
+      puts 'Succes! you have registered'
     else
-      @users.push(User.new(username: username, password: password))
-      puts 'succes! you have registered'
-      puts
+      puts 'Username is already in use'
     end
   end
 
   def login
+    logout if @current_user
     puts 'enter username'
-    username = gets.downcase.rstrip!
+    username = gets.rstrip!
     puts 'enter password'
-    password = gets.downcase.rstrip!
-    @current_user = @users.find { |user| user.check_data(username, password) }
-    if @current_user.is_a?(User) || @current_user.is_a?(Admin)
-      if @current_user.blocked
-        puts 'this user is blocked'
-      else
-        puts 'you have loged in'
-        main_window
-      end
+    password = gets.rstrip!
+    if !(@current_user = User.login(username, password)).nil?
+      puts 'you have loged in'
     else
       puts 'Wrong username or password'
     end
   end
 
-  def main_window
-    puts 'welcome ' + @current_user.username
-    loop do
-      puts
-      if @current_user.is_a?(Admin)
-        puts 'users - to see all avalible users'
-        puts 'name - to change sop name'
-        puts 'sales - to view info about sales'
-      end
-      puts 'what would you like to do?'
-      puts 'delete - to delete your account'
-      puts 'user - to view your account'
-      puts 'games - to view all games'
-      puts 'currency - to change currency game prices are shown'
-      puts 'logout - to logout'
-      action = gets.downcase.rstrip!
-      case [action, true]
-      when ['logout', @current_user.is_a?(User)]
-        @current_user.clear_cart
-        @currency = 'LTL'
-        @current_user = nil
-        break
-      when ['delete', @current_user.is_a?(User)]
-        @users.delete(@current_user)
-        @current_user = nil
-        break
-      when ['user', @current_user.is_a?(User)]
-        user_window
-      when ['games', @current_user.is_a?(User)]
-        gamelist_window
-      when ['currency', @current_user.is_a?(User)]
-        change_currency
-      when ['users', @current_user.is_a?(Admin)]
-        users_list
-      when ['name', @current_user.is_a?(Admin)]
-        change_name
-      when ['sales', @current_user.is_a?(Admin)]
-        view_sales
-      else
-        puts 'wrong action'
-      end
-    end
-  end
-
-  def view_sales
-    puts 'all sales:'
-    @sales.each do |sale|
-      puts
-      puts sale.buyer.username
-      puts 'time: ' + sale.time.to_s
-      puts 'sold items:'
-      sale.items.each do |item, amount|
-        puts item.name + ' x' + amount.to_s
-      end
-      puts sale.price
-    end
-  end
-
-  def change_name
-    puts
-    puts 'current shop name is: ' + @name
-    puts 'enter new name:'
-    @name = gets.rstrip!
-    puts 'shop name successfuly changed to: ' + @name
-  end
-
-  def users_list
-    loop do
-      puts
-      puts 'currently registered users: '
-      @users.each do |user|
-        puts user.username + ' ' + user.class.to_s + ' ' + user.blocked.to_s
-      end
-      puts 'what woud you like to do?'
-      puts 'block - to blosck user'
-      puts 'unblock - to unblock user'
-      puts 'admin - to add admin'
-      puts 'credit - to edit users credit'
-      puts 'purchases - to wiev user purchases'
-      puts 'info - to view user info'
-      puts 'back - to go back'
-      action = gets.downcase.rstrip!
-      case action
-      when 'block'
-        block_user
-      when 'unblock'
-        unblock_user
-      when 'admin'
-        add_admin
-      when 'credit'
-        edit_credit
-      when 'purchases'
-        purchase_list
-      when 'info'
-        user_info
-      when 'back'
-        break
-      else
-        puts 'wrong action'
-      end
-    end
-  end
-
-  def user_info
-    puts 'enter a name of a user you want to inspect'
-    name = gets.downcase.rstrip!
-    user = @users.find { |u| u.username.downcase == name }
-    if user.is_a?(User)
-      puts 'username, balance, gamelist, is blocked'
-      info = @current_user.get_user_info(user)
-      puts info[0]
-      puts info[1]
-      info[2].each { |item| puts item.name }
-      puts info[3]
+  def logout
+    if @current_user && @current_user.logged_in
+      @current_user.logged_in = false
+      @current_user = nil
+      puts 'You have logged out'
     else
-      puts 'could not find this user'
+      puts 'you need to be logged in to log out'
     end
   end
 
-  def purchase_list
-    puts 'enter name of a user, to view his purchase history'
-    name = gets.downcase.rstrip!
-    user = @users.find { |u| u.username.downcase == name }
-    if user.is_a?(User)
-      @current_user.get_user_purchases(user).each do |purchase|
-        puts purchase.time.to_s
-        purchase.items.each do |item, amount|
-          puts item.name + ' x' + amount.to_s
-        end
-        puts purchase.price
-        puts
-      end
+  def delete
+    if @current_user && @current_user.logged_in
+      @current_user.delete
+      @current_user = nil
+      puts 'you have deleted your account'
     else
-      puts 'could not find this user'
+      puts 'you need to be logged in to delete your account'
     end
   end
 
-  def edit_credit
-    puts 'enter a name of a user you want to grant credit'
-    username = gets.downcase.rstrip!
-    user = @users.find { |u| u.username.downcase == username }
-    puts 'enter ammount of credits you want the user to have'
-    credit = gets.to_i
-    if !(user.is_a?(User))
-      puts 'could not find user'
-    elsif credit < 0
-      puts 'invalid amount of credits'
+  def admin?
+    if @current_user && @current_user.admin
+      true
     else
-      @current_user.edit_user_balance(user, credit)
-      puts 'user: ' + user.username + ' now has ' + user.balance.to_s +
-           ' credits'
+      puts 'You do not have a permition to perform this action'
+      false
     end
-  end
-
-  def add_admin
-    puts 'enter username of a new admin'
-    username = gets.rstrip!
-    puts 'enter password of a new admin'
-    password = gets.rstrip!
-    @users.push(Admin.new(username: username, password: password))
-    puts 'Admin: ' + username + ' created'
-  end
-
-  def block_user
-    puts 'enter name of a user you want to block'
-    name = gets.downcase.rstrip!
-    user = @users.find { |u| u.username.downcase == name }
-    if user.class == User
-      @current_user.block_user(user)
-    else
-      puts 'user does not exist, or cannot be blocked'
-    end
-  end
-
-  def unblock_user
-    puts 'enter name of a user you want to block'
-    name = gets.downcase.rstrip!
-    user = @users.find { |u| u.username.downcase == name }
-    if user.class == User
-      @current_user.unblock_user(user)
-    else
-      puts 'user does not exist, or cannot be unblocked'
-    end
-  end
-
-  def change_currency
-    puts
-    puts 'select currency from avalible' + @price_modifier.keys.to_s
-    selection = gets.downcase.rstrip!
-    case selection
-    when 'ltl'
-      @currency = 'LTL'
-    when 'eur'
-      @currency = 'EUR'
-    else
-      puts 'wrong selection'
-    end
-    puts @currency
-  end
-
-  def user_window
-    puts
-    loop do
-      puts
-      puts 'welcome to your user profile, ' +
-           @current_user.username + ' your balance now is: ' +
-           @current_user.balance.to_s
-      puts 'what would you like to do?'
-      puts 'send - to write a message'
-      puts 'messages - to view messages'
-      puts 'read - to read a message'
-      puts 'games - to wiev a list of games you own'
-      puts 'purchases - to see you purchase history'
-      puts 'cart - to wiev a cart'
-      puts 'sort - to sort a gamelist'
-      puts 'back - to go back'
-      action = gets.downcase.rstrip!
-      case action
-      when 'send'
-        send_message
-      when 'messages'
-        print_messages
-      when 'read'
-        read_message
-      when 'games'
-        print_game_list
-      when 'purchases'
-        print_purchases
-      when 'cart'
-        cart
-      when 'sort'
-        @current_user.sort
-      when 'back'
-        break
-      else
-        puts 'wrong selection'
-      end
-    end
-  end
-
-  def print_purchases
-    @current_user.purchases.each do |purchase|
-      puts
-      puts purchase.time
-      purchase.items.each do |item, number|
-        puts item.name + ' x' + number.to_s
-      end
-      puts purchase.price
-    end
-  end
-
-  def print_game_list
-    @current_user.gamelist.each do |game|
-      puts game.name + ' ' + game.description
-    end
-  end
-
-  def read_message
-    puts 'enter id of a message you want to read'
-    id = gets.to_i
-    message = @current_user.messages.find { |msg| msg.id == id }
-    if message.is_a?(Message)
-      message.read = true
-      puts 'time message was sent: ' + message.date.to_s
-      puts 'sender: ' + message.sender.username
-      puts 'topic: ' + message.topic
-      puts 'message: ' + message.text
-    else
-      puts 'message not found'
-    end
-  end
-
-  def print_messages
-    puts 'your messages(id, read?, date, sender, topic):'
-    @current_user.messages.each do |message|
-      puts message.id.to_s + ' ' + message.read.to_s + ' ' +
-      message.date.to_s + ' ' + message.sender.username + ' ' +
-      message.topic
-    end
-  end
-
-  def cart
-    loop do
-      puts
-      puts 'content of your cart:'
-      @current_user.cart.itemlist.each do |item, number|
-        puts item.name + ' ' + item.price.to_s +
-        ' x' + number.to_s
-      end
-      puts 'total: ' + @current_user.cart.price.to_s
-      puts 'what would you like to do?'
-      puts 'clear - to clear cart'
-      puts 'buy - to buy items in a cart'
-      puts 'remove - to remove item from a cart'
-      puts 'back - to go back'
-      action = gets.downcase.rstrip!
-      case action
-      when 'clear'
-        @current_user.clear_cart
-      when 'buy'
-        @sales.push(@current_user.buy)
-      when 'remove'
-        remove_from_cart
-      when 'back'
-        break
-      end
-    end
-  end
-
-  def remove_from_cart
-    puts 'type item name you want to remove'
-    name = gets.downcase.rstrip!
-    item = @current_user.cart.itemlist.keys
-           .find { |i| i.name.downcase == name }
-    if item.is_a?(Game)
-      @current_user.remove_from_cart(item)
-    else
-      puts 'item not found in your cart'
-    end
-  end
-
-  def send_message
-    puts
-    puts 'enter name of a receiver'
-    puts 'our current administrators:'
-    @users.each { |user| print user.username + ' ' if user.is_a?(Admin) }
-    puts
-    name = gets.downcase.rstrip!
-    puts 'type topic of a message'
-    topic = gets
-    puts 'type message'
-    message = gets
-    receiver = @users.find { |user| user.username.downcase == name }
-    if receiver.is_a?(User) || receiver.is_a?(Admin)
-      @current_user.send_message(text: message, topic: topic,
-                                 receiver: receiver)
-      puts 'success! message sent'
-    else
-      puts 'user does not exist'
-    end
-  end
-
-  def gamelist_window
-    filter = false
-    lower_value = 0
-    upper_value = 0
-    loop do
-      puts
-      puts 'the folowing is a list of games we have to offer(name price)'
-      if filter
-        @games.each do |game|
-          puts game.name + ' ' +
-          (game.price * @price_modifier[@currency])
-          .round(2).to_s +
-          @currency if game.price.between?(lower_value, upper_value)
-        end
-      else
-        @games.each do |game|
-          puts game.name + ' ' + (game.price * @price_modifier[@currency])
-          .round(2).to_s + @currency
-        end
-      end
-      puts 'what would you like to do?'
-      if @current_user.is_a?(Admin)
-        puts 'new - to add a new game'
-        puts 'remove - to remove game from the list'
-      end
-      puts 'inspect - to further inspect selected game'
-      puts 'add - to add selected game to your cart'
-      puts 'filter - to filter gamelist by price range'
-      puts 'back - to return to main window'
-      action = gets.downcase.rstrip!
-      case [action, true]
-      when ['inspect', @current_user.is_a?(User)]
-        inspect_game
-      when ['add', @current_user.is_a?(User)]
-        add_game_to_cart
-      when ['back', @current_user.is_a?(User)]
-        filter = false
-        lower_value = 0
-        upper_value = 0
-        break
-      when ['filter', @current_user.is_a?(User)]
-        puts 'enter lover value'
-        lower_value = gets.to_i
-        puts 'enter upper value'
-        upper_value = gets.to_i
-        if upper_value >= lower_value
-          filter = true
-        else
-          puts 'wrong values'
-        end
-      when ['new', @current_user.is_a?(Admin)]
-        add_new_game
-      when ['remove', @current_user.is_a?(Admin)]
-        remove_game
-      else
-        puts 'wrong selection'
-      end
-    end
-  end
-
-  def remove_game
-    puts 'enter a name of a game you want to remove'
-    name = gets.downcase.rstrip!
-    game = @games.find { |g| g.name.downcase == name }
-    @current_user.remove_game(game, @games) if game.is_a?(Game)
-  end
-
-  def add_new_game
-    puts 'enter a name of a game:'
-    name = gets.rstrip!
-    puts 'ender description of a game:'
-    description = gets.rstrip!
-    puts 'enter a price of a game:'
-    price = gets.to_i
-    puts 'enter genre of a game'
-    genre = gets.rstrip!
-    if @games.any? { |game| game.name.downcase == name }
-      puts 'game with this name already in use'
-    else
-      @games.push(@current_user.add_game(name: name,
-                                         description: description,
-                                         price: price,
-                                         genre: genre))
-      puts 'Item named: ' + name + ' successfully created'
-    end
-  end
-
-  def add_game_to_cart
-    puts 'type a name of a game you want to add to your cart'
-    game_name = gets.downcase.rstrip!
-    selected_game = @games.find { |game| game.name.downcase == game_name }
-    if selected_game.is_a?(Game)
-      puts 'how many would you like to add?(1..10)'
-      num = gets.to_i
-      if num.between?(1, 10)
-        @current_user.add_to_cart(selected_game, num)
-      else
-        @current_user.add_to_cart(selected_game)
-      end
-    else
-      puts 'game not found'
-    end
-  end
-
-  def inspect_game
-    puts 'type a name of a game you want to inspect'
-    game_name = gets.downcase.rstrip!
-    selected_game = @games.find { |game| game.name.downcase == game_name }
-    if selected_game.is_a?(Game)
-      selected_game_window(selected_game)
-    else
-      puts 'game not found'
-    end
-  end
-
-  def selected_game_window(game)
-    loop do
-      puts
-      puts 'Game name: ' + game.name
-      puts 'Game genre: ' + game.genre
-      puts 'Game description: ' + game.description
-      puts 'Game price(' + @currency + '): ' + (game.price *
-                                                @price_modifier[@currency])
-                                                .round(2).to_s
-      puts 'comments:'
-      game.comments.each do |x|
-        puts x.id.to_s + ' ' + x.time.to_s +
-        ' ' + x.user.username + ' ' + x.text
-      end
-      if game.ratings.empty?
-        puts 'Game rating: no ratings yet'
-      else
-        puts 'Game rating: ' +
-            (game.ratings.values.instance_eval { reduce(:+) / size.to_f }).to_s
-      end
-      puts
-      puts 'what would you like to do?'
-      if @current_user.is_a?(Admin)
-        puts 'price - to edit game price'
-        puts 'desc - to edit game description'
-        puts 'edit - to edit selected comment'
-      end
-      puts 'add - to add this game to cart'
-      puts 'comment - to comment this game'
-      puts 'rate - to rate this game'
-      puts 'back - to return to game list window'
-      action = gets.downcase.rstrip!
-      case [action, true]
-      when ['add', @current_user.is_a?(User)]
-        add_game(game)
-      when ['back', @current_user.is_a?(User)]
-        break
-      when ['comment', @current_user.is_a?(User)]
-        comment_game(game)
-      when ['rate', @current_user.is_a?(User)]
-        rate_game(game)
-      when ['price', @current_user.is_a?(Admin)]
-        change_price(game)
-      when ['desc', @current_user.is_a?(Admin)]
-        change_description(game)
-      when ['edit', @current_user.is_a?(Admin)]
-        edit_comment(game)
-      else
-        puts 'wrong selection'
-      end
-    end
-  end
-
-  def change_price(game)
-    puts 'current game price is: ' + game.price.to_s + ' LTL'
-    puts 'enter new price for this game'
-    price = gets.to_i
-    if price >= 0
-      @current_user.edit_game_price(game, price)
-    else
-      puts 'invalid price'
-    end
-  end
-
-  def change_description(game)
-    puts 'current descrription of a game is: '
-    puts game.description
-    puts 'enter new description for this game'
-    description = gets.rstrip!
-    @current_user.edit_game_description(game, description)
-  end
-
-  def edit_comment(game)
-    puts 'type id of a omment you want to edit: '
-    id = gets.to_i
-    puts 'type a new comment'
-    text = gets.rstrip!
-    comment = game.comments.find { |comm| comm.id == id }
-    if comment.is_a?(Comment)
-      @current_user.edit_comment(comment, text)
-    else
-      puts 'comment not found'
-    end
-  end
-
-  def add_game(game)
-    puts 'how many would you like to add?(1..10)'
-    num = gets.to_i
-    if num.between?(1, 10)
-      @current_user.add_to_cart(game, num)
-    else
-      @current_user.add_to_cart(game)
-    end
-  end
-
-  def comment_game(game)
-    puts 'what would you like to say about this game?'
-    comment = gets.rstrip!
-    @current_user.comment_game(game: game, text: comment)
-  end
-
-  def rate_game(game)
-    puts 'how would you rate this game?'
-    rate = gets.to_i
-    @current_user.rate_game(game: game, rating: rate)
   end
 end
-shop = Shop.new
-File.open('shop.yaml', 'r') do |obj|
-  shop = YAML.load(obj)
-end
-shop.begin
+
+Shop.new
